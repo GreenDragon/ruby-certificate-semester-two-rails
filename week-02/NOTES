@@ -1,0 +1,19 @@
+rails depo
+ruby script/generate scaffold product title:string description:test image_url:string
+
+git init
+git add . 
+git commit -m 'initial import'
+git status
+
+rake routes
+
+rake db:migrate
+
+rails console
+
+rake test:units
+
+rake secret
+
+rake -T test
