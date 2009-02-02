@@ -75,4 +75,31 @@ class ProductsControllerTest < ActionController::TestCase
 
     assert_redirected_to products_path
   end
+
+  # more tests
+
+  # would this be considered a unit test, or functional?
+
+  test "should prevent duplicate titles" do
+    post :create, :product => {
+      :title        => 'awesome product',
+      :description  => 'awesome product description',
+      :image_url    => 'http://example.com/foo.gif',
+      :price        => '100'
+    }
+
+    assert_redirected_to product_path(assigns(:product))
+
+    # Dupe entry
+
+    post :create, :product => {
+      :title        => 'awesome product',
+      :description  => 'awesome product description',
+      :image_url    => 'http://example.com/foo.gif',
+      :price        => '100'
+    }
+
+    assert_template "new"
+    # assert_redirected_to :controller => 'product', :action => 'new'
+  end
 end

@@ -55,8 +55,8 @@ Rails::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_depo_session',
-    :secret      => '629d77bff4b2ce8cb6d391a44c46d1cedccea56b739e0ed24d37a3389a11c2d55ebbb6ba90a2d95a3830dcef43d07cf041007bfba02243c11acefc57f712d1dc'
+    :session_key => '_depot_session',
+    :secret      => '231381627850db9ed29e0aa471e1ecbe06e908f0c246160fa867b9c8aba1ec576373bb8a50879549e0618834764f374c77267b168b8c5911a156c2ece36c091f'
   }
 
   # Use the database for sessions instead of the cookie-based default,

@@ -1,6 +1,14 @@
 require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase
+
+  test "product price storage math works" do
+    product = products(:one)
+    product.price = 28.50
+    product.save!
+    assert_equal 28.50, product.price
+  end
+
   test "product has price" do
     product = products(:one)
     product.price = 1000
@@ -32,18 +40,20 @@ class ProductTest < ActiveSupport::TestCase
     assert product.errors.on(:price)
   end
 
+  # It's my understanding we agreed to use decimal format in class
+
   test "that the price must be at least one cent" do
     product = products(:one)
 
     product.price = 0.01
-    assert !product.valid?
-    assert product.errors.on(:price)
+    assert product.valid?
+    assert ! product.errors.on(:price)
 
     product.price = nil
-    assert !product.valid?
+    assert ! product.valid?
     assert product.errors.on(:price)
 
-    product.price = 1
+    product.price = 0.01
     assert product.save!
   end
 
