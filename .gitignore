@@ -1,4 +1,5 @@
 *.log
 *.tmp
 *.swp
+*.sqlite3
 .DS_Store
