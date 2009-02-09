@@ -36,5 +36,7 @@ class CartTest < ActiveSupport::TestCase
     assert_equal 2*@git_book.price, @cart.total_price
     assert_equal 1, @cart.items.size
     assert_equal 2, @cart.items[0].quantity
+    assert_equal 2, @cart.total_items
   end
+
 end

@@ -1,14 +1,16 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-john_doe_order:
-  id: 1
+#john_doe_order:
+  #id: 1
+one:
   name: John Doe
   address: 123 Some Street
   email: john@doe.com
   pay_type: check
 
-jane_doe_order:
-  id: 2
+#jane_doe_order:
+  #id: 2
+two:
   name: Jill Doe
   address: 456 Some Avenue
   email: jill.doe@gmail.com

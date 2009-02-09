@@ -7,6 +7,13 @@ class ProductsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:products)
   end
 
+  test "should display product" do
+    get :show, :id => products(:git_book).id
+    assert_response :success
+    # too chatty
+    # assert_tag :tag => 'strong', :content => 'Title:'
+  end
+
   test "should get new" do
     get :new
     assert_response :success
@@ -38,12 +45,12 @@ class ProductsControllerTest < ActionController::TestCase
   end
 
   test "should show product" do
-    get :show, :id => products(:one).id
+    get :show, :id => products(:git_book).id
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, :id => products(:one).id
+    get :edit, :id => products(:git_book).id
     assert_tag :tag => 'input', :attributes => {
       :name => 'product[title]'
     }
@@ -60,17 +67,25 @@ class ProductsControllerTest < ActionController::TestCase
   end
 
   test "should update product" do
-    put :update, :id => products(:one).id, :product => {
+    put :update, :id => products(:git_book).id, :product => {
       :title => 'mega awesome title'
     }
     assert_redirected_to product_path(assigns(:product))
 
-    assert_equal 'mega awesome title', Product.find(products(:one).id).title
+    assert_equal 'mega awesome title', Product.find(products(:git_book).id).title
+  end
+
+  test "should not update product with empty image_url" do
+    put :update, :id => products(:git_book).id, :product => {
+      :image_url => ''
+    }
+    assert_response :success
+    assert_template 'edit'
   end
 
   test "should destroy product" do
     assert_difference('Product.count', -1) do
-      delete :destroy, :id => products(:one).id
+      delete :destroy, :id => products(:git_book).id
     end
 
     assert_redirected_to products_path

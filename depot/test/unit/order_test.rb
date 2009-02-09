@@ -6,6 +6,7 @@ class OrderTest < ActiveSupport::TestCase
   # fixtures :order
   # maybe this? :orders
   # arg! seems like an evil mix between test data in db and fixtures, wtf?
+  fixtures :products
 
   def setup
     @order = Order.find(:first)
@@ -37,7 +38,12 @@ class OrderTest < ActiveSupport::TestCase
   
   # garr! issues with fixtures
 
-  #test "add line items from cart" do
-  #  fail "write me"
-  #end
+  test "add line items from cart" do
+    order = Order.new
+    cart = Cart.new
+    cart.add_product(products(:git_book))
+    line_items = order.add_line_items_from_cart(cart) 
+    assert_equal 1, line_items[0].product.id
+    assert_equal "Git up and Go!", line_items[0].product.title
+  end
 end

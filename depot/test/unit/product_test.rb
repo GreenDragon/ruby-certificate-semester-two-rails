@@ -2,6 +2,9 @@ require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase
 
+  # This one is fragile since it depends on data from the db
+  # It would blow up when using a fixture
+
   test "product price storage math works" do
     product = products(:git_book)
     product.price = 28.50
