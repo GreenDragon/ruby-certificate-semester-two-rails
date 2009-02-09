@@ -1,12 +1,14 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+git_book:
+  id: 1
   title: Git up and Go!
   description: My awesome book of git commands.
   image_url: /images/git.png
   price: 19.99
 
-two:
+sudo_book:
+  id: 2
   title: Sudo make me a sandwich!
   description: Arcane warlock ways to command people to your will
   image_url: /images/obey.png

@@ -3,20 +3,30 @@
 <head>
   <title>Pragprog Books Online Store</title>
   <%= stylesheet_link_tag "depot", :media => "all" %>
-  </head>
-  <body id="store">
-    <div id="banner">
-      <%= image_tag("logo.png") %>
-      <%= @page_title || "Pragmatic Bookshelf" %>
+  <%= javascript_include_tag :defaults %> 
+</head>
+<body id="store">
+  <div id="banner">
+    <%= image_tag("logo.png") %>
+    <%= @page_title || "Pragmatic Bookshelf" %>
   </div>
   <div id="columns">
     <div id="side">
+      <% if @cart %>
+        <% hidden_div_if(@cart.items.empty?, :id => "cart") do %>
+          <%= render(:partial => "cart", :object => @cart) %> 
+        <% end %>
+      <% end %>
       <a href="http://www..../">Home</a><br>
       <a href="http://www..../faq">Questions</a><br>
       <a href="http://www..../news">News</a><br>
       <a href="http://www..../contact">Contact</a><br>
     </div>
     <div id="main">
+      <% if flash[:notice] -%>
+        <div id="notice"><%= flash[:notice] %></div>
+      <% end -%>
+
       <%= yield :layout %>
     </div>
   </div>

@@ -3,14 +3,14 @@ require 'test_helper'
 class ProductTest < ActiveSupport::TestCase
 
   test "product price storage math works" do
-    product = products(:one)
+    product = products(:git_book)
     product.price = 28.50
     product.save!
     assert_equal 28.50, product.price
   end
 
   test "product has price" do
-    product = products(:one)
+    product = products(:git_book)
     product.price = 1000
     product.save!
   end
@@ -34,7 +34,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test "that price must be a number" do
-    product = products(:one)
+    product = products(:git_book)
     product.price = 'hello world!'
     assert ! product.valid?
     assert product.errors.on(:price)
@@ -43,7 +43,7 @@ class ProductTest < ActiveSupport::TestCase
   # It's my understanding we agreed to use decimal format in class
 
   test "that the price must be at least one cent" do
-    product = products(:one)
+    product = products(:git_book)
 
     product.price = 0.01
     assert product.valid?
@@ -58,13 +58,13 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test "that titles are unique" do
-    product = Product.new(products(:one).attributes)
+    product = Product.new(products(:git_book).attributes)
     assert ! product.valid?
     assert product.errors.on(:title)
   end
 
   test "urls must be formatted properly" do
-    product = products(:one)
+    product = products(:git_book)
     assert product.valid?
     product.image_url = 'http://asdfasdfadsf'
     assert ! product.valid?
