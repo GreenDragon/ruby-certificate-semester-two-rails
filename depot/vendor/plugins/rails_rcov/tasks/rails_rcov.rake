@@ -54,6 +54,9 @@ if ARGV.grep(/--run-rake-task=/).empty?
       if ENV['RCOV_PARAMS']
         params << ENV['RCOV_PARAMS']
       end
+
+      # hack
+      params << "-x \"gems/*,rcov*\""
       
       # rake test:units:rcov SHOW_ONLY=models,controllers,lib,helpers
       # rake test:units:rcov SHOW_ONLY=m,c,l,h
