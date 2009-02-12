@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class StoreControllerTest < ActionController::TestCase
+  #def setup
+  #  session[:user_id] = 1
+  #end
+    
   test "should get index" do
     get :index
     assert_response :success

@@ -1,6 +1,13 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
+
+  fixtures :users
+
+  def setup
+    @request.session[:user_id] = users(:john).id
+  end
+
   test "should get index" do
     get :index
     assert_response :success
@@ -14,10 +21,14 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should create user" do
     assert_difference('User.count') do
-      post :create, :user => { }
+      post :create, :user => { 
+        :name => "Three", 
+        :password => "secret", 
+        :password_confirmation => "secret"
+      }
     end
 
-    assert_redirected_to user_path(assigns(:user))
+    assert_redirected_to :controller => "users"
   end
 
   test "should show user" do
@@ -31,8 +42,8 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should update user" do
-    put :update, :id => users(:one).id, :user => { }
-    assert_redirected_to user_path(assigns(:user))
+    put :update, :id => users(:one).id, :user => { :name => "One Updated" }
+    assert_redirected_to :controller => "users"
   end
 
   test "should destroy user" do

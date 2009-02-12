@@ -1,6 +1,13 @@
 require 'test_helper'
 
 class OrdersControllerTest < ActionController::TestCase
+
+  fixtures :users
+
+  def setup
+    @request.session[:user_id] = users(:john).id
+  end
+
   test "should get index" do
     get :index
     assert_response :success
