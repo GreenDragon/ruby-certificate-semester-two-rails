@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Mon Feb 09 10:32:05 -0800 2009 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Wed Feb 11 19:27:29 -0800 2009 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -571,24 +571,24 @@ span.run100 {
     </thead>
   <tbody><tr class='light'><td><a href='app-controllers-store_controller_rb.html'>app/controllers/store_controller.rb</a>
         </td>
-      <td class='lines_total'><tt>56</tt>
+      <td class='lines_total'><tt>60</tt>
         </td>
       <td class='lines_code'><tt>49</tt>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>28.6%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>40.0%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='29'/>
-                  <td class='uncovered' width='71'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='40'/>
+                  <td class='uncovered' width='60'/>
                   </tr>
                 </table>
               </td>
             </tr>
           </table>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>18.4%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>26.5%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='18'/>
-                  <td class='uncovered' width='82'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='27'/>
+                  <td class='uncovered' width='73'/>
                   </tr>
                 </table>
               </td>
@@ -598,62 +598,66 @@ span.run100 {
       </tr>
     </tbody>
   </table>
-<pre><span class="marked1"><a name="line1"></a> 1 class StoreController &lt; ApplicationController
-</span><span class="marked0"><a name="line2"></a> 2   def index
-</span><span class="uncovered1"><a name="line3"></a> 3     @products = Product.find_products_for_sale
-</span><span class="uncovered0"><a name="line4"></a> 4     @cart = find_cart
-</span><span class="uncovered1"><a name="line5"></a> 5   end
-</span><span class="inferred0"><a name="line6"></a> 6 
-</span><span class="marked1"><a name="line7"></a> 7   def add_to_cart
-</span><span class="uncovered0"><a name="line8"></a> 8     product = Product.find(params[:id])
-</span><span class="uncovered1"><a name="line9"></a> 9     @cart = find_cart
-</span><span class="uncovered0"><a name="line10"></a>10     @current_item = @cart.add_product(product)
-</span><span class="uncovered1"><a name="line11"></a>11       respond_to do |format|
-</span><span class="uncovered0"><a name="line12"></a>12         format.js   if request.xhr?
-</span><span class="uncovered1"><a name="line13"></a>13         format.html {redirect_to_index}
-</span><span class="uncovered0"><a name="line14"></a>14       end
-</span><span class="uncovered1"><a name="line15"></a>15   rescue ActiveRecord::RecordNotFound
-</span><span class="uncovered0"><a name="line16"></a>16     logger.error(&quot;Attempt to access invalid product #{params[:id]}&quot;)
-</span><span class="uncovered1"><a name="line17"></a>17     redirect_to_index(&quot;Invalid product&quot;)
-</span><span class="uncovered0"><a name="line18"></a>18   end
-</span><span class="inferred1"><a name="line19"></a>19 
-</span><span class="marked0"><a name="line20"></a>20   def checkout
-</span><span class="uncovered1"><a name="line21"></a>21     @cart = find_cart
-</span><span class="uncovered0"><a name="line22"></a>22     if @cart.items.empty?
-</span><span class="uncovered1"><a name="line23"></a>23       redirect_to_index(&quot;Your cart is empty&quot;)
-</span><span class="uncovered0"><a name="line24"></a>24     else
-</span><span class="uncovered1"><a name="line25"></a>25       @order = Order.new
-</span><span class="uncovered0"><a name="line26"></a>26     end
-</span><span class="uncovered1"><a name="line27"></a>27   end
-</span><span class="inferred0"><a name="line28"></a>28 
-</span><span class="marked1"><a name="line29"></a>29   def save_order
-</span><span class="uncovered0"><a name="line30"></a>30     @cart = find_cart
-</span><span class="uncovered1"><a name="line31"></a>31     @order = Order.new(params[:order])
-</span><span class="uncovered0"><a name="line32"></a>32     @order.add_line_items_from_cart(@cart)
-</span><span class="uncovered1"><a name="line33"></a>33     if @order.save
-</span><span class="uncovered0"><a name="line34"></a>34       session[:cart] = nil
-</span><span class="uncovered1"><a name="line35"></a>35       redirect_to_index(&quot;Thank you for your order&quot;)
-</span><span class="uncovered0"><a name="line36"></a>36     else
-</span><span class="uncovered1"><a name="line37"></a>37       render :action =&gt; 'checkout'
-</span><span class="uncovered0"><a name="line38"></a>38     end
-</span><span class="uncovered1"><a name="line39"></a>39   end
-</span><span class="inferred0"><a name="line40"></a>40 
-</span><span class="marked1"><a name="line41"></a>41   def empty_cart
-</span><span class="uncovered0"><a name="line42"></a>42     session[:cart] = nil
-</span><span class="uncovered1"><a name="line43"></a>43     redirect_to_index
-</span><span class="uncovered0"><a name="line44"></a>44   end
-</span><span class="inferred1"><a name="line45"></a>45 
-</span><span class="marked0"><a name="line46"></a>46   private
-</span><span class="inferred1"><a name="line47"></a>47 
-</span><span class="marked0"><a name="line48"></a>48   def redirect_to_index(msg = nil)
-</span><span class="uncovered1"><a name="line49"></a>49     flash[:notice] = msg if msg
-</span><span class="uncovered0"><a name="line50"></a>50     redirect_to :action =&gt; 'index'
-</span><span class="uncovered1"><a name="line51"></a>51   end
-</span><span class="inferred0"><a name="line52"></a>52 
-</span><span class="marked1"><a name="line53"></a>53   def find_cart
-</span><span class="uncovered0"><a name="line54"></a>54     @cart = (session[:cart] ||= Cart.new)
-</span><span class="uncovered1"><a name="line55"></a>55   end
-</span><span class="uncovered0"><a name="line56"></a>56 end
+<pre><span class="marked0"><a name="line1"></a> 1 class StoreController &lt; ApplicationController
+</span><span class="inferred1"><a name="line2"></a> 2 
+</span><span class="marked0"><a name="line3"></a> 3   before_filter :find_cart, :except =&gt; :empty_cart
+</span><span class="inferred1"><a name="line4"></a> 4 
+</span><span class="marked0"><a name="line5"></a> 5   def index
+</span><span class="uncovered1"><a name="line6"></a> 6     @products = Product.find_products_for_sale
+</span><span class="uncovered0"><a name="line7"></a> 7   end
+</span><span class="inferred1"><a name="line8"></a> 8 
+</span><span class="marked0"><a name="line9"></a> 9   def add_to_cart
+</span><span class="uncovered1"><a name="line10"></a>10     product = Product.find(params[:id])
+</span><span class="uncovered0"><a name="line11"></a>11     @current_item = @cart.add_product(product)
+</span><span class="uncovered1"><a name="line12"></a>12       respond_to do |format|
+</span><span class="uncovered0"><a name="line13"></a>13         format.js   if request.xhr?
+</span><span class="uncovered1"><a name="line14"></a>14         format.html {redirect_to_index}
+</span><span class="uncovered0"><a name="line15"></a>15       end
+</span><span class="uncovered1"><a name="line16"></a>16   rescue ActiveRecord::RecordNotFound
+</span><span class="uncovered0"><a name="line17"></a>17     logger.error(&quot;Attempt to access invalid product #{params[:id]}&quot;)
+</span><span class="uncovered1"><a name="line18"></a>18     redirect_to_index(&quot;Invalid product&quot;)
+</span><span class="uncovered0"><a name="line19"></a>19   end
+</span><span class="inferred1"><a name="line20"></a>20 
+</span><span class="marked0"><a name="line21"></a>21   def checkout
+</span><span class="uncovered1"><a name="line22"></a>22     if @cart.items.empty?
+</span><span class="uncovered0"><a name="line23"></a>23       redirect_to_index(&quot;Your cart is empty&quot;)
+</span><span class="uncovered1"><a name="line24"></a>24     else
+</span><span class="uncovered0"><a name="line25"></a>25       @order = Order.new
+</span><span class="uncovered1"><a name="line26"></a>26     end
+</span><span class="uncovered0"><a name="line27"></a>27   end
+</span><span class="inferred1"><a name="line28"></a>28 
+</span><span class="marked0"><a name="line29"></a>29   def save_order
+</span><span class="uncovered1"><a name="line30"></a>30     @order = Order.new(params[:order])
+</span><span class="uncovered0"><a name="line31"></a>31     @order.add_line_items_from_cart(@cart)
+</span><span class="uncovered1"><a name="line32"></a>32     if @order.save
+</span><span class="uncovered0"><a name="line33"></a>33       session[:cart] = nil
+</span><span class="uncovered1"><a name="line34"></a>34       redirect_to_index(&quot;Thank you for your order&quot;)
+</span><span class="uncovered0"><a name="line35"></a>35     else
+</span><span class="uncovered1"><a name="line36"></a>36       render :action =&gt; 'checkout'
+</span><span class="uncovered0"><a name="line37"></a>37     end
+</span><span class="uncovered1"><a name="line38"></a>38   end
+</span><span class="inferred0"><a name="line39"></a>39 
+</span><span class="marked1"><a name="line40"></a>40   def empty_cart
+</span><span class="uncovered0"><a name="line41"></a>41     session[:cart] = nil
+</span><span class="uncovered1"><a name="line42"></a>42     redirect_to_index
+</span><span class="uncovered0"><a name="line43"></a>43   end
+</span><span class="inferred1"><a name="line44"></a>44 
+</span><span class="marked0"><a name="line45"></a>45 protected
+</span><span class="inferred1"><a name="line46"></a>46 
+</span><span class="marked0"><a name="line47"></a>47   def authorize
+</span><span class="inferred1"><a name="line48"></a>48   end
+</span><span class="inferred0"><a name="line49"></a>49 
+</span><span class="marked1"><a name="line50"></a>50 private
+</span><span class="inferred0"><a name="line51"></a>51 
+</span><span class="marked1"><a name="line52"></a>52   def redirect_to_index(msg = nil)
+</span><span class="uncovered0"><a name="line53"></a>53     flash[:notice] = msg if msg
+</span><span class="uncovered1"><a name="line54"></a>54     redirect_to :action =&gt; 'index'
+</span><span class="uncovered0"><a name="line55"></a>55   end
+</span><span class="inferred1"><a name="line56"></a>56 
+</span><span class="marked0"><a name="line57"></a>57   def find_cart
+</span><span class="uncovered1"><a name="line58"></a>58     @cart = (session[:cart] ||= Cart.new)
+</span><span class="uncovered0"><a name="line59"></a>59   end
+</span><span class="uncovered1"><a name="line60"></a>60 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>

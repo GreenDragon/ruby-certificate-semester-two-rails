@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Mon Feb 09 11:08:02 -0800 2009 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Wed Feb 11 19:27:48 -0800 2009 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -571,24 +571,24 @@ span.run100 {
     </thead>
   <tbody><tr class='light'><td><a href='app-controllers-application_rb.html'>app/controllers/application.rb</a>
         </td>
-      <td class='lines_total'><tt>15</tt>
+      <td class='lines_total'><tt>28</tt>
         </td>
-      <td class='lines_code'><tt>4</tt>
+      <td class='lines_code'><tt>14</tt>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>100.0%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>85.7%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
-                  <td class='uncovered' width='0'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='86'/>
+                  <td class='uncovered' width='14'/>
                   </tr>
                 </table>
               </td>
             </tr>
           </table>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>100.0%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>71.4%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
-                  <td class='uncovered' width='0'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='71'/>
+                  <td class='uncovered' width='29'/>
                   </tr>
                 </table>
               </td>
@@ -602,17 +602,30 @@ span.run100 {
 </span><span class="inferred0"><a name="line2"></a> 2 # Likewise, all the methods added will be available for all controllers.
 </span><span class="inferred1"><a name="line3"></a> 3 
 </span><span class="marked0"><a name="line4"></a> 4 class ApplicationController &lt; ActionController::Base
-</span><span class="marked1"><a name="line5"></a> 5   helper :all # include all helpers, all the time
-</span><span class="inferred0"><a name="line6"></a> 6 
-</span><span class="inferred1"><a name="line7"></a> 7   # See ActionController::RequestForgeryProtection for details
-</span><span class="inferred0"><a name="line8"></a> 8   # Uncomment the :secret if you're not using the cookie session store
-</span><span class="marked1"><a name="line9"></a> 9   protect_from_forgery :secret =&gt; '8b062aecde887f4a765e715ff736ec22'
-</span><span class="inferred0"><a name="line10"></a>10   
-</span><span class="inferred1"><a name="line11"></a>11   # See ActionController::Base for details 
-</span><span class="inferred0"><a name="line12"></a>12   # Uncomment this to filter the contents of submitted sensitive data parameters
-</span><span class="inferred1"><a name="line13"></a>13   # from your application log (in this case, all fields with names like &quot;password&quot;). 
-</span><span class="inferred0"><a name="line14"></a>14   # filter_parameter_logging :password
-</span><span class="inferred1"><a name="line15"></a>15 end
+</span><span class="marked1"><a name="line5"></a> 5   layout &quot;store&quot;
+</span><span class="marked0"><a name="line6"></a> 6   before_filter :authorize, :except =&gt; :login
+</span><span class="marked1"><a name="line7"></a> 7   helper :all # include all helpers, all the time
+</span><span class="inferred0"><a name="line8"></a> 8 
+</span><span class="inferred1"><a name="line9"></a> 9   # See ActionController::RequestForgeryProtection for details
+</span><span class="inferred0"><a name="line10"></a>10   # Uncomment the :secret if you're not using the cookie session store
+</span><span class="marked1"><a name="line11"></a>11   protect_from_forgery :secret =&gt; '8b062aecde887f4a765e715ff736ec22'
+</span><span class="inferred0"><a name="line12"></a>12   
+</span><span class="inferred1"><a name="line13"></a>13   # See ActionController::Base for details 
+</span><span class="inferred0"><a name="line14"></a>14   # Uncomment this to filter the contents of submitted sensitive data parameters
+</span><span class="inferred1"><a name="line15"></a>15   # from your application log (in this case, all fields with names like &quot;password&quot;). 
+</span><span class="inferred0"><a name="line16"></a>16   # filter_parameter_logging :password
+</span><span class="inferred1"><a name="line17"></a>17 
+</span><span class="marked0"><a name="line18"></a>18 protected
+</span><span class="inferred1"><a name="line19"></a>19   
+</span><span class="marked0"><a name="line20"></a>20   def authorize
+</span><span class="marked1"><a name="line21"></a>21     unless User.find_by_id(session[:user_id])
+</span><span class="uncovered0"><a name="line22"></a>22       session[:original_uri] = request.request_uri
+</span><span class="uncovered1"><a name="line23"></a>23       flash[:notice] = &quot;Please log in&quot;
+</span><span class="uncovered0"><a name="line24"></a>24       redirect_to :controller =&gt; 'admin', :action =&gt; 'login'
+</span><span class="uncovered1"><a name="line25"></a>25     end
+</span><span class="marked0"><a name="line26"></a>26   end
+</span><span class="inferred1"><a name="line27"></a>27 
+</span><span class="inferred0"><a name="line28"></a>28 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>
