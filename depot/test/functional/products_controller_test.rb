@@ -124,4 +124,52 @@ class ProductsControllerTest < ActionController::TestCase
     assert_template "new"
     # assert_redirected_to :controller => 'product', :action => 'new'
   end
+
+  test "should not update when price is zero" do
+    put :update, :id => products(:git_book).id, 
+                        :product => { :price => 0.00 }
+    product = assigns("product")
+    assert !product.valid?
+    assert product.errors.on(:price)
+  end
+
+  test "should not update when price is invalid" do
+    put :update, :id => products(:git_book).id,
+                              :product => { :price => "invalid" }
+    product = assigns("product")
+    assert !product.valid?
+    assert product.errors.on(:price)
+  end
+
+  test "should not update when title is empty" do
+    put :update, :id => products(:git_book).id,
+                              :product => { :title => "" }
+    product = assigns("product")
+    assert !product.valid?
+    assert product.errors.on(:title)
+  end
+
+  test "should not update when empty image" do
+    put :update, :id => products(:git_book).id,
+                              :product => { :image_url => "" }
+    product = assigns("product")
+    assert !product.valid?
+    assert product.errors.on(:image_url)
+  end
+
+  test "should not update when bad image url" do
+    put :update, :id => products(:git_book).id,
+                              :product => { :image_url => "bad_url" }
+    product = assigns("product")
+    assert !product.valid?
+    assert product.errors.on(:image_url)
+  end
+
+  test "should not update when bad description" do
+    put :update, :id => products(:git_book).id,
+                              :product => { :description => "" }
+    product = assigns("product")
+    assert !product.valid?
+    assert product.errors.on(:description)
+  end
 end

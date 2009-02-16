@@ -54,4 +54,33 @@ class LineItemsControllerTest < ActionController::TestCase
 
     assert_redirected_to line_items_path
   end
+
+  test "test from cart item" do
+    cart_item = CartItem.new(products(:git_book))
+    line_item = LineItem.from_cart_item(cart_item)
+
+    assert_equal products(:git_book), line_item.product
+    assert_equal 1, line_item.quantity
+    assert_equal products(:git_book).price, line_item.total_price
+  end
+
+  test "test from cart item with many of the same products" do
+    product = products(:git_book)
+
+    cart_item = CartItem.new(product)
+    cart_item.increment_quantity
+
+    line_item = LineItem.from_cart_item(cart_item)
+
+    assert_equal product, line_item.product
+    assert_equal 2, line_item.quantity
+    assert_equal cart_item.price, line_item.total_price
+  end
+
+  test "test line item can has order" do
+    line_item = line_items(:one)
+    line_item.order = orders(:two)
+    line_item.save!
+    # asset_equal(:one) assert what?
+  end
 end

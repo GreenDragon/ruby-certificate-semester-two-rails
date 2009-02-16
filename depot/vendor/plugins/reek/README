@@ -1,0 +1,21 @@
+2009.02.12
+
+runs with 'rake reek'
+
+Snarfed some code from http://pastie.org/282104
+
+Parent
+
+http://silkandspinach.net/2008/09/23/reek-a-code-smells-detector-for-ruby/
+
+Requires 'reek' gem
+
+http://github.com/kevinrutherford/reek/tree/master 
+
+http://rubyforge.org/projects/reek/
+
+See also, 'roodi', 'flay', 'flog', 'heckle'
+
+I don’t think I had heard the phrase “going ugly” until I read Go Ugly Early by Dwayne Melancon today. To quote Dwayne:
+
+    “This concept involves releasing early iterations of your products so you can allow your customers to interact with them and provide feedback. I’m not talking about releasing unstable or buggy products - I’m talking about releasing stable products that have limited functionality, but which telegraph the shapes of things to come.”

@@ -1,10 +1,6 @@
 require 'test_helper'
 
 class StoreControllerTest < ActionController::TestCase
-  #def setup
-  #  session[:user_id] = 1
-  #end
-    
   test "should get index" do
     get :index
     assert_response :success
@@ -28,13 +24,9 @@ class StoreControllerTest < ActionController::TestCase
     xhr :post, :add_to_cart, { :id => products(:git_book).id}
     assert_response :success
     assert_equal 1, cart.items.length
-    # ajax madness!
-    # assert_tag :tag => 'div', :attributes => { :class => 'cart-title' }
-    # assert_tag :tag => 'td', :attributes => { :class => 'item-price' }
-    # assert_tag :tag => 'td', :attributes => { :class => 'total-cell' }
   end
 
-  test "should complain if bad product id" do
+  test "should complain if bad product" do
     get :index
     assert_cart = session[:cart]
     xhr :post, :add_to_cart, { :id => "garbage" }
@@ -44,14 +36,12 @@ class StoreControllerTest < ActionController::TestCase
   end
 
   test "should be able to check out" do
-    xhr :post, :add_to_cart, { :id => products(:git_book).id}
-    assert_response :success
-    xhr :post, :checkout
-    assert_response :success
-    #assert_equal "Thank you for your order", flash[:notice]
-    #assert_redirected_to :action => :index
-    #assert_nil session[:cart]
-    #assert_select_rjs(:update, 'notice')
+    #xhr :post, :add_to_cart, { :id => products(:git_book).id}
+    #assert_response :success
+    get :empty_cart
+    get :checkout
+    assert_redirected_to :controller => "store", :action => "index"
+    assert_equal "Your cart is empty", flash[:notice]
   end
 
   test "should redirect if cart is emtpy" do
@@ -79,6 +69,20 @@ class StoreControllerTest < ActionController::TestCase
     assert_equal "Thank you for your order", flash[:notice]
   end
 
+  test "save order empties cart and redirect to index with status message" do
+    @request.session[:cart] = Cart.new
+    @request.session[:cart].add_product(products(:git_book))
+
+    post :save_order, :order => {
+      :name       => "Jo Blow",
+      :address    => "123 Some St., Seattle, WA, 98101",
+      :email      => "jo@blow.com",
+      :pay_type   => "cc",
+    }
+    assert_nil session[:cart]
+    assert_redirected_to :controller => :store, :action => :index
+  end
+
   test "should empty cart" do
     get :empty_cart
 
@@ -86,12 +90,4 @@ class StoreControllerTest < ActionController::TestCase
     assert_nil assigns(:cart)
     assert_redirected_to :action => :index
   end
-
-
-
-  # Shhh! it's private!
-  #test "should redirect to index" do
-  #  get :redirect_to_index
-  #  assert_redirected_to :action => :index
-  #end
 end

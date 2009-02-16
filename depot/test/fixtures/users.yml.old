@@ -1,7 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-john:
+one:
   id: 1
-  name: john
+  name: one
   hashed_password: <%= User.encrypted_password('secret', 'pepper') %>
   salt: pepper
