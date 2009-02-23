@@ -36,8 +36,6 @@ class StoreControllerTest < ActionController::TestCase
   end
 
   test "should be able to check out" do
-    #xhr :post, :add_to_cart, { :id => products(:git_book).id}
-    #assert_response :success
     get :empty_cart
     get :checkout
     assert_redirected_to :controller => "store", :action => "index"
@@ -89,5 +87,53 @@ class StoreControllerTest < ActionController::TestCase
     assert_response :redirect
     assert_nil assigns(:cart)
     assert_redirected_to :action => :index
+  end
+
+  # I18n tests
+
+  test "default session[:locale] is nil" do
+    get :index
+    assert_response :success
+    assert_nil @response.session[:locale]
+  end
+
+  test "specified locale is stored in session" do
+    get :index, :locale => "es"
+    assert_response :success
+    assert_equal "es", @response.session[:locale]
+  end
+
+  test "sanity check known translations" do
+    get :index
+    assert_response :success
+    assert_tag :tag => "a", :content => /Home/
+    assert_tag :tag => "a", :content => /Questions/
+    assert_tag :tag => "a", :content => /News/
+    assert_tag :tag => "a", :content => /Contact/
+
+    get :index, :locale => "es"
+    assert_response :success
+    assert_tag :tag => "a", :content => /Inicio/
+    assert_tag :tag => "a", :content => /Preguntas/
+    assert_tag :tag => "a", :content => /Noticias/
+    assert_tag :tag => "a", :content => /Contacto/
+  end
+
+  test "specifying an unknown local generates an error" do
+    get :index, :locale => "zh-guoyu"
+    assert_response :success
+    assert_equal "zh-guoyu translation not available", flash[:notice]
+    assert_equal "en", @response.session[:locale]
+  end
+
+  # fromn in class example
+  test "store controller is localized" do
+    locale = LANGUAGES.to_a.last.last 
+    @request.session[:user_id] = users(:john).id
+    get :index, :locale => locale
+    translations = YAML.load_file("#{LOCALES_DIRECTORY}#{locale}.yml")
+    assert_match translations[locale]['layout']['side']['questions'], 
+                  @response.body
+
   end
 end
