@@ -9,6 +9,8 @@ class Group < ActiveRecord::Base
     Group.find(:all, :include => :locations, :order => "locations.name")
   end
 
+  # This is what I want below, how do I say it properly in Active::Record speech?
+
   #def self.sort_by_location_name
   #  Group.find_by_sql "
   #    SELECT groups.name AS group_name, 
