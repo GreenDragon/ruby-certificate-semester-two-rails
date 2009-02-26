@@ -31,7 +31,7 @@ class LocationsControllerTest < ActionController::TestCase
   end
 
   test "should update location" do
-    put :update, :id => locations(:one).id, :location => { }
+    put :update, :id => locations(:one).id, :location => { :name => "Change" }
     assert_redirected_to location_path(assigns(:location))
   end
 

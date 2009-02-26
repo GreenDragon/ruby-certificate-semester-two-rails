@@ -3,9 +3,9 @@
 one:
   name: MyString
   alias: MyString
-  url: MyString
+  url: http://MyString/
 
 two:
   name: MyString
   alias: MyString
-  url: MyString
+  url: http://MyString/

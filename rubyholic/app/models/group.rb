@@ -1,28 +1,20 @@
 class Group < ActiveRecord::Base
   has_many    :locations
 
-  def self.sort_by_group_name
-    Group.find(:all, :order => "name")
+  validates_presence_of :name
+  validates_format_of   :url, :with => /^http.*$/i
+
+  def self.sort_by_name
+    Group.find(:all, :order => "upper(name) ASC")
   end
 
-  def self.sort_by_location_name
-    Group.find(:all, :include => :locations, :order => "locations.name")
+  def self.sort_by_location
+    # Code ala tenderlove
+    g = Group.find(
+      :all, 
+      :include => :locations, 
+      :order => "upper(locations.name) ASC"
+    )
+    g.map { |group| group.locations.map { |location| [group.id, group.name, location.name] } }
   end
-
-  def self.sort_by_location_aaron
-    Group.find(:all, :order => 'name', :include => :locations)
-    groups.map { |group| group.locations.map { |location| [group.name, location.name] } }
-  end
-
-  # This is what I want below, how do I say it properly in Active::Record speech?
-
-  #def self.sort_by_location_name
-  #  Group.find_by_sql "
-  #    SELECT groups.name AS group_name, 
-  #      locations.name AS location_name,
-  #      latitude, longitude
-  #    FROM locations 
-  #    INNER JOIN groups ON locations.group_id = groups.id 
-  #    ORDER BY locations.name"
-  #end
 end
