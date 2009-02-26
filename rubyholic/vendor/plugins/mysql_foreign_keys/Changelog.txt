@@ -1,0 +1,2 @@
+2008-10-26 Christian Johansen <christian@cjohansen.no>
+   * Initial release

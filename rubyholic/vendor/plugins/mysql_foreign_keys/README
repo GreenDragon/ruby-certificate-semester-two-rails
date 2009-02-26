@@ -1,0 +1,15 @@
+MySQL Foreign Keys
+##################
+
+Add and remove foreign key restraints for MySQL tables.
+
+See the lib/mysql_foreign_keys.rb file for details on usage of the methods:
+  add_foreign_key
+  remove_foreign_key
+
+Author:
+  Christian Johansen
+  www.cjohansen.no
+
+Released under the MIT license. No Support. No Warranty.
+Copyright (c) 2008 Christian Johansen

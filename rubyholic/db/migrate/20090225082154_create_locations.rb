@@ -10,9 +10,11 @@ class CreateLocations < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_foreign_key :locations, :groups
   end
 
   def self.down
+    remove_foreign_key :groups, :group_id
     drop_table :locations
   end
 end

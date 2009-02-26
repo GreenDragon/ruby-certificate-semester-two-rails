@@ -29,4 +29,6 @@ ActiveRecord::Schema.define(:version => 20090225082217) do
     t.datetime "updated_at"
   end
 
+  add_index "locations", ["group_id"], :name => "fk_locations_group_id"
+
 end

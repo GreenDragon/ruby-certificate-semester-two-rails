@@ -73,8 +73,8 @@ class DevelopmentTestData < ActiveRecord::Migration
     )
 
     Location.create(
-      :name => "ThoughtWorks Aon Center",
-      :address => "200 E. Randolph, 25th Floor, Chicago, IL, USA",
+      :name => "ThoughtWorks Aon Center, 25 Floor",
+      :address => "200 E. Randolph, Chicago, IL, USA",
       :latitude => "",
       :longitude => "",
       :group_id => 5

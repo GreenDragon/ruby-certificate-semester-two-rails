@@ -9,6 +9,11 @@ class Group < ActiveRecord::Base
     Group.find(:all, :include => :locations, :order => "locations.name")
   end
 
+  def self.sort_by_location_aaron
+    Group.find(:all, :order => 'name', :include => :locations)
+    groups.map { |group| group.locations.map { |location| [group.name, location.name] } }
+  end
+
   # This is what I want below, how do I say it properly in Active::Record speech?
 
   #def self.sort_by_location_name
