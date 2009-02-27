@@ -9,11 +9,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090225082217) do
+ActiveRecord::Schema.define(:version => 20090227071706) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
-    t.string   "alias"
+    t.string   "alternate_name"
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"

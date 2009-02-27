@@ -14,4 +14,18 @@ class Location < ActiveRecord::Base
                     :lng_column_name  => :longitude,
                     :auto_geocode     => { :field => :address,
                       :error_message => 'Could not find geocode address'}
+
+  define_index do
+    # fields
+    indexes name,       :sortable => true
+    indexes address,    :sortable => true
+    indexes latitude,   :sortable => true
+    indexes longitude,  :sortable => true
+    #
+    indexes group.name,           :as => :group_name
+    indexes group.alternate_name, :as => :group_alternate_name
+    indexes group.url,            :as => :group_url
+    # attributes
+    has created_at, updated_at, group_id
+  end
 end

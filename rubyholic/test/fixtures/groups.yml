@@ -2,10 +2,10 @@
 
 one:
   name: MyString
-  alias: MyString
+  alternate_name: MyString
   url: http://MyString/
 
 two:
   name: MyString
-  alias: MyString
+  alternate_name: MyString
   url: http://MyString/

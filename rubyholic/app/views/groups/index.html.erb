@@ -10,7 +10,7 @@
 <% for group in @groups %>
   <tr>
     <td><%=h group.name %></td>
-    <td><%=h group.alias %></td>
+    <td><%=h group.alternate_name %></td>
     <td><%=h group.url %></td>
     <td><%= link_to 'Show', group %></td>
     <td><%= link_to 'Edit', edit_group_path(group) %></td>

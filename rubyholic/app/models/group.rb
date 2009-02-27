@@ -22,16 +22,16 @@ class Group < ActiveRecord::Base
 
   define_index do
     # fields
-    indexes name,   :sortable => true
-    # ouch! reserved word, frakking thing
-    # indexes alias,  :sortable => true
-    indexes url,    :sortable => true
+    indexes name,               :sortable => true
+    indexes alternate_name,     :sortable => true
+    indexes url,                :sortable => true
 
     indexes locations.name,     :as => :location_name
-    indexes locations.address,  :as => :address
+    indexes locations.address,  :as => :loctiona_address
     
     # attributes
-    has created_at
-    has updated_at
+    has created_at, updated_at
+    #
+    has locations(:id),         :as => :location_ids
   end
 end
