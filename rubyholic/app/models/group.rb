@@ -19,4 +19,19 @@ class Group < ActiveRecord::Base
     )
     g.map { |group| group.locations.map { |location| [group.id, group.name, location.name] } }
   end
+
+  define_index do
+    # fields
+    indexes name,   :sortable => true
+    # ouch! reserved word, frakking thing
+    # indexes alias,  :sortable => true
+    indexes url,    :sortable => true
+
+    indexes locations.name,     :as => :location_name
+    indexes locations.address,  :as => :address
+    
+    # attributes
+    has created_at
+    has updated_at
+  end
 end
