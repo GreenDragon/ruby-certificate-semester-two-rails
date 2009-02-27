@@ -1,11 +1,19 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  name: MyString
-  alternate_name: MyString
-  url: http://MyString/
+  id:             1
+  name:           Seattle Ruby Brigade
+  alternate_name: Seattle.rb
+  url:            http://www.zenspider.com/Languages/Ruby/Seattle/
 
 two:
-  name: MyString
-  alternate_name: MyString
-  url: http://MyString/
+  id:             2
+  name:           The Portland Ruby Brigade
+  alternate_name: PDX.rb
+  url:            http://pdxruby.org/
+
+three:
+  id:             3
+  name:           Vancouver Ruby Brigade
+  alternate_name: Vancouver.rb
+  url:            hrrp://groups.google.com/group/vanrb

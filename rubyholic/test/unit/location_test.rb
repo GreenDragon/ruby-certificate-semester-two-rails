@@ -51,6 +51,8 @@ class LocationTest < ActiveSupport::TestCase
 #>> l = Location.create( { :name => "Tea", :address => "416 Maynard Ave S, Seattle, WA", :group_id => 666 } )
 #=> #<Location id: 996332890, name: "Tea", address: "416 Maynard Ave S, Seattle, WA", latitude: 47.5990131, longitude: -122.325085, group_id: 666, created_at: "2009-02-27 05:41:47", updated_at: "2009-02-27 05:41:47">
   #
+  # Even with proper fixtures, still missing foreign_key support in test_db
+  #
   #test "location is invalid when group_id is invalid" do
   #  assert_raises(ActiveRecord::StatementInvalid) do
   #    location = Location.create( {

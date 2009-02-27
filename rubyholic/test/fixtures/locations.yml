@@ -1,15 +1,19 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  name: MyString
-  address: MyString
-  latitude: 1.5
-  longitude: 1.5
-  group_id: 1
+  id:         1
+  name:       Vivace Espessso Bar at Brix
+  address:    532 Broadway Ave. East, Seattle, WA, USA
+  group_id:   1
 
 two:
-  name: MyString
-  address: MyString
-  latitude: 1.5
-  longitude: 1.5
-  group_id: 1
+  id:         2
+  name:       CubeSpace
+  address:    622 SE Grand Ave., Portland, OR, USA
+  group_id:   2
+
+three:
+  id:         3
+  name:       Waves Coffee
+  address:    492 Hastings Street West, Vancouver, British Columbia, CA
+
