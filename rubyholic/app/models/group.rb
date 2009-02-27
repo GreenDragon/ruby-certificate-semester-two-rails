@@ -4,6 +4,8 @@ class Group < ActiveRecord::Base
   validates_presence_of :name
   validates_format_of   :url, :with => /^http.*$/i
 
+  validates_associated  :locations
+
   def self.sort_by_name
     Group.find(:all, :order => "upper(name) ASC")
   end
