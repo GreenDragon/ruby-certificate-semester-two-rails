@@ -84,4 +84,26 @@ class LocationTest < ActiveSupport::TestCase
     assert location.errors.on(:address)
     assert_save_failure(location)
   end
+
+  # How to start/stop rake ts:start/ts:stop from test suites?
+  # Or sanity check that think_sphinx interface is running?
+  # scan for pid? 
+  #
+  # Garr! test fails!
+  #
+#>> res = Location.search("Seattle")
+#=> [#<Location id: 1, name: "Vivace Espresso Bar at Brix", address: "532 Broadway Ave. East, Seattle, WA, USA", latitude: 47.6065, longitude: -122.321, group_id: 1, created_at: "2009-02-26 07:01:00", updated_at: "2009-02-26 07:01:00">]
+#>> res.first
+#=> #<Location id: 1, name: "Vivace Espresso Bar at Brix", address: "532 Broadway Ave. East, Seattle, WA, USA", latitude: 47.6065, longitude: -122.321, group_id: 1, created_at: "2009-02-26 07:01:00", updated_at: "2009-02-26 07:01:00">
+#>> res.first.name
+#=> "Vivace Espresso Bar at Brix"
+  #
+  # More development db vs fixtures. Frakking fixtures!
+  #
+  test "think_sphinx returns known location" do
+    res = Location.search("MyString")
+    # Hrmm, this will be tricky to test since we don't index 
+    # the test db fixtures yet. Joy!
+    assert_nil res.first
+  end
 end
