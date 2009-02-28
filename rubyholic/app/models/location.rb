@@ -17,10 +17,10 @@ class Location < ActiveRecord::Base
 
   define_index do
     # fields
-    indexes name,       :sortable => true
-    indexes address,    :sortable => true
-    indexes latitude,   :sortable => true
-    indexes longitude,  :sortable => true
+    indexes :name,                :sortable => true
+    indexes :address,             :sortable => true
+    indexes :latitude,            :sortable => true
+    indexes :longitude,           :sortable => true
     #
     indexes group.name,           :as => :group_name
     indexes group.alternate_name, :as => :group_alternate_name

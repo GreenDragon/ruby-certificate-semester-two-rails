@@ -27,9 +27,9 @@ class Group < ActiveRecord::Base
 
   define_index do
     # fields
-    indexes name,               :sortable => true
-    indexes alternate_name,     :sortable => true
-    indexes url,                :sortable => true
+    indexes :name,              :sortable => true
+    indexes :alternate_name,    :sortable => true
+    indexes :url,               :sortable => true
 
     indexes locations.name,     :as => :location_name
     indexes locations.address,  :as => :loctiona_address
