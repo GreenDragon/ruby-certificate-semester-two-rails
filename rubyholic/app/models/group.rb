@@ -1,5 +1,5 @@
 class Group < ActiveRecord::Base
-  has_many    :locations
+  has_many    :locations, :dependent => :destroy
 
   validates_presence_of :name
   validates_format_of   :url, :with => /^https?:\/\/.*$/i
