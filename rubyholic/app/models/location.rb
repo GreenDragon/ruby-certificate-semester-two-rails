@@ -2,16 +2,13 @@ class Location < ActiveRecord::Base
   has_many  :events, :dependent => :destroy
   has_many  :groups, :through => :events, :dependent => :destroy
 
-  validates_presence_of       :name
-  validates_presence_of       :address
-
-  validates_numericality_of   :latitude
-  validates_numericality_of   :longitude
-
+  validates_presence_of       :name, :address
   # fail safe when geocode errors are not caught
+  # since it's ! null, it enters 0 when not found
+  # need to intercept that in the future
+  validates_presence_of       :latitude, :longitude
 
-  validates_presence_of       :latitude
-  validates_presence_of       :longitude
+  validates_numericality_of   :latitude, :longitude
 
   acts_as_mappable  :lat_column_name  => :latitude,
                     :lng_column_name  => :longitude,
