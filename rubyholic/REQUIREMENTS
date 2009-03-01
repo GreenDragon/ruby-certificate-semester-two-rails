@@ -1,0 +1,13 @@
+Tested on Mac OS X 10.5.6
+
+Binaries
+
+MySQL           >= 5.1.31
+Sphinx          >= 0.9.8.1-id64-release
+
+Gems
+
+andre-geokit    >= 1.2.4
+geocoder        >= 0.1.1
+google-geocode  >= 1.21
+ym4r            >= 0.6.1

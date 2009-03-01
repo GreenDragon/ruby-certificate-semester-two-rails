@@ -1,0 +1,10 @@
+*** Currently disabled ***
+
+
+The "think_sphinx returns known location" in test/unit/locations
+*fails* if you do not have thinking_sphinx running:
+
+Before testing, run the following commands.
+
+$ rake ts:in
+$ rake ts:start

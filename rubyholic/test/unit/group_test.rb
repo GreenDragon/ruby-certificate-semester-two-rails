@@ -38,6 +38,13 @@ class GroupTest < ActiveSupport::TestCase
     assert ! group.errors.on(:url)
   end
 
+  test "group index returns instance of WillPaginate::Collection" do
+    group = Group.index(1)
+    assert_equal WillPaginate::Collection, group.class
+    assert_equal [1, 2, 3, 4, 5], group.map { |g| g.id}
+  end
+    
+
   test "group should be sorted by name" do
     group_ids = Group.sort("name", 1).map { |g| g.id }
     assert_equal [4, 5, 1, 2, 3], group_ids
