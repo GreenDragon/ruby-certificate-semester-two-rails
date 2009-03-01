@@ -1,11 +1,9 @@
 class Location < ActiveRecord::Base
-  belongs_to                  :group
+  has_many  :events, :dependent => :destroy
+  has_many  :groups, :through => :events, :dependent => :destroy
 
   validates_presence_of       :name
   validates_presence_of       :address
-
-  validates_numericality_of   :group_id
-  validates_associated        :group
 
   validates_numericality_of   :latitude
   validates_numericality_of   :longitude
@@ -26,14 +24,14 @@ class Location < ActiveRecord::Base
     # fields
     indexes :name,                :sortable => true
     indexes :address,             :sortable => true
-    indexes :latitude,            :sortable => true
-    indexes :longitude,           :sortable => true
+    indexes :notes,               :sortable => true
     #
-    indexes group.name,           :as => :group_name
-    indexes group.alternate_name, :as => :group_alternate_name
-    indexes group.url,            :as => :group_url
+    # indexes group.name,           :as => :group_name
+    # indexes group.alternate_name, :as => :group_alternate_name
+    # indexes group.url,            :as => :group_url
     # attributes
-    has created_at, updated_at, group_id
+    has latitude, longitude
+    has created_at, updated_at
   end
 
 private

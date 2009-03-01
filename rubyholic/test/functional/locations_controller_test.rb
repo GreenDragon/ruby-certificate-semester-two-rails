@@ -16,8 +16,7 @@ class LocationsControllerTest < ActionController::TestCase
     assert_difference('Location.count') do
       post :create, :location => { 
         :name     => "New Century Tea House", 
-        :address  => "416 Maynard Ave S, Seattle, WA, USA",
-        :group_id => 1 
+        :address  => "416 Maynard Ave S, Seattle, WA, USA"
       }
     end
 

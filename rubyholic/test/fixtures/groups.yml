@@ -17,3 +17,15 @@ three:
   name:           Vancouver Ruby Brigade
   alternate_name: Vancouver.rb
   url:            http://groups.google.com/group/vanrb
+
+four:
+  id:             4
+  name:           Calgary Ruby Users Society
+  alternate_name: CRUserS
+  url:            http://tech.groups.yahoo.com/group/crusers/
+
+five:
+  id:             5
+  name:           Chicago Area Ruby Group
+  alternate_name: chirb
+  url:            http://chirb.org/

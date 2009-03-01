@@ -1,0 +1,46 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id:           1
+  name:         Seattle.rb @ Vivace
+  description:  Weekly Meeting
+  start_date:   2009-03-03 19:00:00
+  end_date:     2009-03-01 21:00:00
+  group_id:     1
+  location_id:  1
+
+two:
+  id:           2
+  name:         PDX.rb @ CubeSpace
+  description:  Monly Meeting
+  start_date:   2009-03-03 19:00:00
+  end_date:     2009-03-03 22:00:00
+  group_id:     2
+  location_id:  2
+
+three:
+  id:           3
+  name:         Vancouver.rb Hack Night
+  description:  Weekly Hack Night
+  start_date:   2009-03-02 19:00:00
+  end_date:     2009-03-02 21:00:00
+  group_id:     3
+  location_id:  3
+
+four:
+  id:           4
+  name:         CRUserS Meeting
+  description:  Phase Shift Meeting
+  start_date:   2009-02-19 17:30:00
+  end_date:     2009-02-19 19:30:00
+  group_id:     4
+  location_id:  4
+
+five:
+  id:           5
+  name:         Chicago Ruby Dojo
+  description:  Randori Kata
+  start_date:   2009-03-02 18:00:00
+  end_date:     2009-03-02 20:00:00
+  group_id:     5
+  location_id:  5

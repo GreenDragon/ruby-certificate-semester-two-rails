@@ -1,4 +1,4 @@
-<h1>Editing location</h1>
+<h1>Editing Location</h1>
 
 <% form_for(@location) do |f| %>
   <%= f.error_messages %>
@@ -10,10 +10,6 @@
   <p>
     <%= f.label :address %><br />
     <%= f.text_field :address %>
-  </p>
-  <p>
-    <%= f.select(:group_id, 
-      Group.find(:all).collect { |g| [ g.name, g.id ] } ) %>
   </p>
   <p>
     <%= f.submit "Update" %>

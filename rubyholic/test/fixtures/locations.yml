@@ -4,16 +4,33 @@ one:
   id:         1
   name:       Vivace Espresso Bar at Brix
   address:    532 Broadway Ave. East, Seattle, WA, USA
-  group_id:   1
+  latitude:   47.6065
+  longitude:  -122.321
 
 two:
   id:         2
   name:       CubeSpace
   address:    622 SE Grand Ave., Portland, OR, USA
-  group_id:   2
+  latitude:   45.5183
+  longitude:  -122.661
 
 three:
   id:         3
   name:       Waves Coffee
   address:    492 Hastings Street West, Vancouver, British Columbia, CA
-  group_id:   3
+  latitude:   49.2840016
+  longitude:  -123.11184
+
+four:
+  id:         4
+  name:       Flamingo Block Building
+  address:    229 11 Avenue SE, Suite 350, Calgary, Alberta, CA
+  latitude:   51.0422851
+  longitude:  -114.0600975
+
+five:
+  id:         5
+  name:       ThoughtWorks Aon Center, 25 Floor
+  address:    200 E. Randolph, Chicago, IL, USA
+  latitude:   41.884659
+  longitude:  -87.621487

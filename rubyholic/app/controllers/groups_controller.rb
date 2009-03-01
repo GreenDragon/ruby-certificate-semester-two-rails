@@ -9,7 +9,7 @@ class GroupsController < ApplicationController
         # yeah, this is fugly!
         @groups = Group.sort("locations.name", params[:page])
       else                 
-        @groups = Group.paginate :all, :page => params[:page]
+        @groups = Group.index(params[:page])
     end
 
     respond_to do |format|

@@ -1,4 +1,4 @@
-<h1>Listing locations</h1>
+<h1>Listing Locations</h1>
 
 <table>
   <tr>
@@ -6,7 +6,6 @@
     <th>Address</th>
     <th>Latitude</th>
     <th>Longitude</th>
-    <th>Group</th>
   </tr>
 
 <% for location in @locations %>
@@ -15,7 +14,6 @@
     <td><%=h location.address %></td>
     <td><%=h location.latitude %></td>
     <td><%=h location.longitude %></td>
-    <td><%=h location.group_id %></td>
     <td><%= link_to 'Show', location %></td>
     <td><%= link_to 'Edit', edit_location_path(location) %></td>
     <td><%= link_to 'Destroy', location, :confirm => 'Are you sure?', :method => :delete %></td>

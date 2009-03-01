@@ -3,13 +3,15 @@ class Group < ActiveRecord::Base
   cattr_reader  :per_page
   @@per_page = 10
 
-  has_many    :locations, :dependent => :destroy
+  has_many  :events, :dependent => :destroy
+  has_many  :locations, :through => :events, :dependent => :destroy
 
   validates_presence_of :name
   validates_format_of   :url, :with => /^https?:\/\/.*$/i
 
-  # TODO this seems to create reciprocal errors
-  # validates_associated  :locations
+  def self.index(page)
+    Group.paginate :all, :page => page, :include => "locations"
+  end
 
   def self.sort(sort, page)
     Group.paginate :all, :page => page, :include => "locations",
@@ -31,13 +33,12 @@ class Group < ActiveRecord::Base
     indexes :name,              :sortable => true
     indexes :alternate_name,    :sortable => true
     indexes :url,               :sortable => true
+    indexes :description,       :sortable => true
 
-    indexes locations.name,     :as => :location_name
-    indexes locations.address,  :as => :location_address
+    # indexes locations.name,     :as => :location_name
+    # indexes locations.address,  :as => :location_address
     
     # attributes
     has created_at, updated_at
-    #
-    has locations(:id),         :as => :location_ids
   end
 end

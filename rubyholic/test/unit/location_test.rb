@@ -11,7 +11,6 @@ class LocationTest < ActiveSupport::TestCase
   test "location is invalid when missing name" do
     location = Location.create( {
       :address  => "416 Maynard Ave S, Seattle, WA",
-      :group_id => 1
     })
     assert location.errors.on(:name)
     assert_save_failure(location) 
@@ -20,18 +19,8 @@ class LocationTest < ActiveSupport::TestCase
   test "location is invalid when missing address" do
     location = Location.create( {
       :name     => "Missing Address",
-      :group_id => 1
     })
     assert location.errors.on(:address)
-    assert_save_failure(location)
-  end
-
-  test "location is invalid when missing a group_id" do
-    location = Location.create( {
-      :name     => "New Century Tea House",
-      :address  => "416 Maynard Ave S, Seattle, WA",
-    } )
-    assert location.errors.on(:group_id)
     assert_save_failure(location)
   end
 
@@ -67,7 +56,6 @@ class LocationTest < ActiveSupport::TestCase
     location = Location.create( { 
       :name     => "New Century Tea House",
       :address  => "416 Maynard Ave S, Seattle, WA, USA",
-      :group_id => 1
     } )
     assert_valid(location)
     location.save!
