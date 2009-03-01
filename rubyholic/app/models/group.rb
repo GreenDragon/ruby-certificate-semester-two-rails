@@ -1,4 +1,8 @@
 class Group < ActiveRecord::Base
+  # I think this belongs in application.rb myself
+  cattr_reader  :per_page
+  @@per_page = 10
+
   has_many    :locations, :dependent => :destroy
 
   validates_presence_of :name
@@ -7,12 +11,9 @@ class Group < ActiveRecord::Base
   # TODO this seems to create reciprocal errors
   # validates_associated  :locations
 
-  def self.sort_by_name
-    Group.find(:all, :order => "upper(name) ASC")
-  end
-
-  def self.sort_by_location
-    Group.find(:all, :include => :locations, :order => "locations.name")
+  def self.sort(sort, page)
+    Group.paginate :all, :page => page, :include => "locations",
+                              :order => "upper(#{sort}) ASC"
   end
 
   #def self.sort_by_location_advanced
@@ -32,7 +33,7 @@ class Group < ActiveRecord::Base
     indexes :url,               :sortable => true
 
     indexes locations.name,     :as => :location_name
-    indexes locations.address,  :as => :loctiona_address
+    indexes locations.address,  :as => :location_address
     
     # attributes
     has created_at, updated_at

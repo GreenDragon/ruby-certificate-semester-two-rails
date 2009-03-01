@@ -3,9 +3,13 @@ class GroupsController < ApplicationController
   # GET /groups.xml
   def index
     case params["sort"]
-      when "name"     then  @groups = Group.sort_by_name
-      when "location" then  @groups = Group.sort_by_location
-      else                  @groups = Group.find(:all)
+      when "name" then 
+        @groups = Group.sort(params[:sort], params[:page])
+      when "location" then 
+        # yeah, this is fugly!
+        @groups = Group.sort("locations.name", params[:page])
+      else                 
+        @groups = Group.paginate :all, :page => params[:page]
     end
 
     respond_to do |format|
