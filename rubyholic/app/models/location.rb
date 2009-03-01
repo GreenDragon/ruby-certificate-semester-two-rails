@@ -7,13 +7,20 @@ class Location < ActiveRecord::Base
   validates_numericality_of   :group_id
   validates_associated        :group
 
-  validates_numericality_of   :latitude,  :on => :create
-  validates_numericality_of   :longitude, :on => :create
+  validates_numericality_of   :latitude
+  validates_numericality_of   :longitude
+
+  # fail safe when geocode errors are not caught
+
+  validates_presence_of       :latitude
+  validates_presence_of       :longitude
 
   acts_as_mappable  :lat_column_name  => :latitude,
                     :lng_column_name  => :longitude,
                     :auto_geocode     => { :field => :address,
                       :error_message => 'Could not find geocode address'}
+
+  before_validation           :geocode_address
 
   define_index do
     # fields
@@ -27,5 +34,13 @@ class Location < ActiveRecord::Base
     indexes group.url,            :as => :group_url
     # attributes
     has created_at, updated_at, group_id
+  end
+
+private
+
+  def geocode_address
+    geo=GeoKit::Geocoders::MultiGeocoder.geocode(address)
+    errors.add(:address, "Could not Geocode address") if !geo.success
+    self.latitude, self.longitude = geo.lat,geo.lng   if geo.success
   end
 end

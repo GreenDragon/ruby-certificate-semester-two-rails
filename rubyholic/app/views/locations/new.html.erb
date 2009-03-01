@@ -12,16 +12,8 @@
     <%= f.text_field :address %>
   </p>
   <p>
-    <%= f.label :latitude %><br />
-    <%= f.text_field :latitude %>
-  </p>
-  <p>
-    <%= f.label :longitude %><br />
-    <%= f.text_field :longitude %>
-  </p>
-  <p>
-    <%= f.label :group_id %><br />
-    <%= f.text_field :group_id %>
+    <%= f.select(:group_id, 
+      Group.find(:all).collect { |g| [ g.name, g.id ] } ) %>
   </p>
   <p>
     <%= f.submit "Create" %>

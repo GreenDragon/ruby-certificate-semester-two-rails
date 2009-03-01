@@ -2,7 +2,11 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.xml
   def index
-    @groups = Group.find(:all)
+    case params["sort"]
+      when "name"     then  @groups = Group.sort_by_name
+      when "location" then  @groups = Group.sort_by_location
+      else                  @groups = Group.find(:all)
+    end
 
     respond_to do |format|
       format.html # index.html.erb

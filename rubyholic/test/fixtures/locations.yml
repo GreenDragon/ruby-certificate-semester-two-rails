@@ -2,7 +2,7 @@
 
 one:
   id:         1
-  name:       Vivace Espessso Bar at Brix
+  name:       Vivace Espresso Bar at Brix
   address:    532 Broadway Ave. East, Seattle, WA, USA
   group_id:   1
 
@@ -16,4 +16,4 @@ three:
   id:         3
   name:       Waves Coffee
   address:    492 Hastings Street West, Vancouver, British Columbia, CA
-
+  group_id:   3

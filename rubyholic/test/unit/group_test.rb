@@ -45,6 +45,6 @@ class GroupTest < ActiveSupport::TestCase
 
   test "group should be sorted by location" do
     group_ids = Group.sort_by_location.map { |g| g.id }
-    assert_equal [3, 2, 1], group_ids
+    assert_equal [2, 1, 3], group_ids
   end
 end

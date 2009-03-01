@@ -87,6 +87,27 @@ class LocationTest < ActiveSupport::TestCase
     assert_save_failure(location)
   end
 
+  test "updating the location address and name triggers a new geocode lookup" do
+    location = Location.find(:first)
+    loc_address = location.address.clone
+    loc_name = location.name.clone
+    #
+    location.name = "Floating Tea Leaves"
+    location.address = "1704 NW Market St., Seattle, WA"
+    assert location.save!
+    assert_equal "Floating Tea Leaves", location.name
+    assert_equal   47.66867,   location.latitude
+    assert_equal -122.3789849, location.longitude
+    #
+    # rollback to known data so other unit tests don't blow up
+    location.name = loc_name
+    location.address = loc_address
+    assert location.save!
+    assert_equal "Vivace Espresso Bar at Brix", location.name
+    assert_equal   47.6065233, location.latitude
+    assert_equal -122.3207549, location.longitude
+  end
+
   # How to start/stop rake ts:start/ts:stop from test suites?
   # Or sanity check that think_sphinx interface is running?
   # scan for pid? 

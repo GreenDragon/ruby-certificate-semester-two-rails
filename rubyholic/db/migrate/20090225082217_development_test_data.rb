@@ -6,35 +6,35 @@ class DevelopmentTestData < ActiveRecord::Migration
     Group.create(
       :id => 1, 
       :name => "Seattle Ruby Brigade", 
-      :alias => "Seattle.rb",
+      :alternate_name => "Seattle.rb",
       :url => "http://www.zenspider.com/Languages/Ruby/Seattle/"
     )
     
     Group.create(
       :id => 2, 
       :name => "The Portland Ruby Brigade", 
-      :alias => "PDX.rb",
+      :alternate_name => "PDX.rb",
       :url => "http://pdxruby.org/"
     )
     
     Group.create(
       :id => 3, 
       :name => "Vancouver Ruby Brigade", 
-      :alias => "Vancouver.rb",
+      :alternate_name => "Vancouver.rb",
       :url => "http://groups.google.com/group/vanrb"
     )
     
     Group.create(
       :id => 4, 
       :name => "Calgary Ruby Users Society", 
-      :alias => "CRUserS",
+      :alternate_name => "CRUserS",
       :url => "http://tech.groups.yahoo.com/group/crusers/"
     )
 
     Group.create(
       :id => 5,
       :name => "Chicago Area Ruby Group",
-      :alias => "chirb",
+      :alternate_name => "chirb",
       :url => "http://chirb.org/"
     )
 
