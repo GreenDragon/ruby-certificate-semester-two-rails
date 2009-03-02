@@ -9,17 +9,26 @@ class GroupTest < ActiveSupport::TestCase
 
   test "group is invalid when missing name" do
     group = Group.create( {
-      :alternate_name => "chirb",
-      :url            => "http://chirb.org/"
+      :description  => "chirb",
+      :url          => "http://chirb.org/"
     } )
     assert group.errors.on(:name)
     assert_save_failure(group)
   end
 
+  test "group is invalid when name is not unique" do
+    assert_raises ActiveRecord::StatementInvalid do
+      group = Group.create( { 
+        :name => "Seattle.rb",
+        :url  => "http://localhost/"
+      } )
+    end
+  end
+
   test "group is invalid when missing url" do
     group = Group.create( {
-      :name           => "Chicago Area Ruby Group",
-      :alternate_name => "chirb"
+      :name         => "chirb",
+      :description  => "Chicago Area Ruby Group"
     } )
     assert group.errors.on(:url)
     assert_save_failure(group)
@@ -47,7 +56,7 @@ class GroupTest < ActiveSupport::TestCase
 
   test "group should be sorted by name" do
     group_ids = Group.sort("name", 1).map { |g| g.id }
-    assert_equal [4, 5, 1, 2, 3], group_ids
+    assert_equal [5, 4, 2, 1, 3], group_ids
   end
 
   test "group should be sorted by location" do

@@ -14,10 +14,10 @@
 <% for group in @groups %>
   <tr>
     <td><%=h group.name %></td>
-    <% if group.alternate_name.empty? %>
+    <% if group.description.empty? %>
     <td>Non Specified</td>
     <% else %>
-    <td><%=h group.alternate_name %></td>
+    <td><%=h group.description %></td>
     <% end %>
     <td><a href="<%=h group.url %>"><%= h group.url %></a></td>
     <td><%=h group.locations.first.name %></td>

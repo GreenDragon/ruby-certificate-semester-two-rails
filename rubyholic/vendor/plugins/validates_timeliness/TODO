@@ -1,0 +1,4 @@
+- :format option
+- :with_date and :with_time options
+- valid formats could come from locale file
+- add replace_formats instead add_formats :before

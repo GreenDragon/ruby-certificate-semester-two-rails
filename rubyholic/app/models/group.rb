@@ -6,7 +6,7 @@ class Group < ActiveRecord::Base
   has_many  :events, :dependent => :destroy
   has_many  :locations, :through => :events, :dependent => :destroy
 
-  validates_presence_of :name
+  validates_presence_of :name, :url
   validates_format_of   :url, :with => /^https?:\/\/.*$/i
 
   def self.index(page)
@@ -31,7 +31,6 @@ class Group < ActiveRecord::Base
   define_index do
     # fields
     indexes :name,              :sortable => true
-    indexes :alternate_name,    :sortable => true
     indexes :url,               :sortable => true
     indexes :description,       :sortable => true
 

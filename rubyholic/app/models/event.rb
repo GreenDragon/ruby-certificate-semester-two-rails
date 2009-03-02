@@ -4,6 +4,8 @@ class Event < ActiveRecord::Base
 
   validates_presence_of :name, :start_date, :end_date, :group_id, :location_id
 
+  validates_datetime    :start_date, :end_date
+
   define_index do
     # fields
     indexes :name,                :sortable => true

@@ -1,31 +1,31 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  id:             1
-  name:           Seattle Ruby Brigade
-  alternate_name: Seattle.rb
-  url:            http://www.zenspider.com/Languages/Ruby/Seattle/
+  id:           1
+  name:         Seattle.rb
+  description:  Seattle Ruby Brigade
+  url:          http://www.zenspider.com/Languages/Ruby/Seattle/
 
 two:
-  id:             2
-  name:           The Portland Ruby Brigade
-  alternate_name: PDX.rb
-  url:            http://pdxruby.org/
+  id:           2
+  name:         PDX.rb
+  description:  The Portland Ruby Brigade
+  url:          http://pdxruby.org/
 
 three:
-  id:             3
-  name:           Vancouver Ruby Brigade
-  alternate_name: Vancouver.rb
-  url:            http://groups.google.com/group/vanrb
+  id:           3
+  name:         Vancouver.rb
+  description:  Vancouver Ruby Brigade
+  url:          http://groups.google.com/group/vanrb
 
 four:
-  id:             4
-  name:           Calgary Ruby Users Society
-  alternate_name: CRUserS
-  url:            http://tech.groups.yahoo.com/group/crusers/
+  id:           4
+  name:         CRuseRS
+  description:  Calgary Ruby Users Society
+  url:          http://tech.groups.yahoo.com/group/crusers/
 
 five:
-  id:             5
-  name:           Chicago Area Ruby Group
-  alternate_name: chirb
-  url:            http://chirb.org/
+  id:           5
+  name:         chirb
+  description:  Chicago Area Ruby Group
+  url:          http://chirb.org/
