@@ -6,8 +6,13 @@ class Group < ActiveRecord::Base
   has_many  :events, :dependent => :destroy
   has_many  :locations, :through => :events, :dependent => :destroy
 
-  validates_presence_of :name, :url
-  validates_format_of   :url, :with => /^https?:\/\/.*$/i
+  validates_presence_of :name
+  # real simple, yeah
+  validates_format_of   :url, 
+    :with     => /^https?:\/\/.*$/i,
+    :message  => "URL doesn't seem valid. Valid format is http://...",
+    :unless   => :url.nil?
+
 
   def self.index(page)
     Group.paginate :all, :page => page, :include => "locations"

@@ -91,6 +91,21 @@ class LocationTest < ActiveSupport::TestCase
     assert_equal -122.3207549, location.longitude
   end
 
+  test "should find closest group location by address" do
+    location = Location.closest("Seattle, WA")
+    assert_equal 1, location.id
+  end
+
+  test "should find closest group location by zipcode" do
+    location = Location.closest("98144")
+    assert_equal 1, location.id
+  end
+
+  test "should find closest location by address within given distance" do
+    location = Location.within(10, "Bellevue, WA")
+    assert_equal 1, location[0].id
+  end
+
   # How to start/stop rake ts:start/ts:stop from test suites?
   # Or sanity check that think_sphinx interface is running?
   # scan for pid? 

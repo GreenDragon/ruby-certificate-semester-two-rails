@@ -31,6 +31,14 @@ class Location < ActiveRecord::Base
     has created_at, updated_at
   end
 
+  def self.closest(origin)
+    Location.find_closest(:origin => origin)
+  end
+
+  def self.within(distance, origin)
+    Location.find_within(distance, :origin => origin)
+  end
+
 private
 
   def geocode_address
