@@ -26,7 +26,7 @@ class IpGeocodeLookupTest < Test::Unit::TestCase #:nodoc: all
   
   def setup
     @success = GeoKit::GeoLoc.new
-    @success.provider = "hostip"
+    @success.provider = "geoplugin"
     @success.lat = 41.7696
     @success.lng = -88.4588
     @success.city = "Sugar Grove"
@@ -35,7 +35,7 @@ class IpGeocodeLookupTest < Test::Unit::TestCase #:nodoc: all
     @success.success = true
     
     @failure = GeoKit::GeoLoc.new
-    @failure.provider = "hostip"
+    @failure.provider = "geoplugin"
     @failure.city = "(Private Address)"
     @failure.success = false
     
@@ -45,7 +45,7 @@ class IpGeocodeLookupTest < Test::Unit::TestCase #:nodoc: all
   end
 
   def test_no_location_in_cookie_or_session
-    Geokit::Geocoders::IpGeocoder.expects(:geocode).with("good ip").returns(@success)
+    Geokit::Geocoders::GeoPluginGeocoder.expects(:geocode).with("good ip").returns(@success)
     @request.remote_ip = "good ip"
     get :index
     verify
@@ -67,7 +67,7 @@ class IpGeocodeLookupTest < Test::Unit::TestCase #:nodoc: all
   end
   
   def test_ip_not_located
-    Geokit::Geocoders::IpGeocoder.expects(:geocode).with("bad ip").returns(@failure)
+    Geokit::Geocoders::GeoPluginGeocoder.expects(:geocode).with("bad ip").returns(@failure)
     @request.remote_ip = "bad ip"
     get :index
     assert_nil @request.session[:geo_location]

@@ -1,0 +1,36 @@
+>> Geokit::Geocoders::GeoPluginGeocoder.do_geocode('76.121.96.144')
+=> #<Geokit::GeoLoc:0x1f64144 @lat=47.667999, @full_address=nil, @state="WA", @success=true, @city="Seattle", @country_code="US", @street_address=nil, @lng=-122.379204, @zip=nil, @provider="geoPlugin", @precision="unknown", @all=[#<Geokit::GeoLoc:0x1f64144 ...>]
+
+http://www.geoplugin.net/xml.gp?ip=76.121.96.144
+
+<geoPlugin>
+<geoplugin_city>Seattle</geoplugin_city>
+<geoplugin_region>WA</geoplugin_region>
+<geoplugin_areaCode>206</geoplugin_areaCode>
+<geoplugin_dmaCode>819</geoplugin_dmaCode>
+<geoplugin_countryCode>US</geoplugin_countryCode>
+<geoplugin_countryName>United States</geoplugin_countryName>
+<geoplugin_continentCode>NA</geoplugin_continentCode>
+<geoplugin_latitude>47.667999</geoplugin_latitude>
+<geoplugin_longitude>-122.379204</geoplugin_longitude>
+<geoplugin_currencyCode>USD</geoplugin_currencyCode>
+<geoplugin_currencySymbol>&#36;</geoplugin_currencySymbol>
+<geoplugin_currencyConverter>1</geoplugin_currencyConverter>
+</geoPlugin>
+
+http://www.geoplugin.net/json.gp?ip=xx.xx.xx.xx
+
+geoPlugin({
+"geoplugin_city":"Seattle",
+"geoplugin_region":"WA",
+"geoplugin_areaCode":"206",
+"geoplugin_dmaCode":"819",
+"geoplugin_countryCode":"US",
+"geoplugin_countryName":"United States",
+"geoplugin_continentCode":"NA",
+"geoplugin_latitude":"47.667999",
+"geoplugin_longitude":"-122.379204",
+"geoplugin_currencyCode":"USD",
+"geoplugin_currencySymbol":"$",
+"geoplugin_currencyConverter":1
+})
