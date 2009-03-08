@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'bigdecimal'
 
 class LocationTest < ActiveSupport::TestCase
   def assert_save_failure(location)
@@ -18,15 +19,15 @@ class LocationTest < ActiveSupport::TestCase
   test "location is invalid when name is not unique" do
     assert_raises ActiveRecord::StatementInvalid do
       location = Location.create( {
-        :name     => "Vivace Espresso Bar at Brix",
-        :address  => "532 Broadway Ave. East, Seattle, WA, USA"
+        :name     => locations(:one).name, 
+        :address  => locations(:one).address
       } )
     end
   end
 
   test "location is invalid when missing address" do
     location = Location.create( {
-      :name     => "Missing Address",
+      :name     => "Missing Address"
     })
     assert location.errors.on(:address)
     assert_save_failure(location)
@@ -42,7 +43,7 @@ class LocationTest < ActiveSupport::TestCase
     assert_raises ActiveRecord::StatementInvalid do
       location = Location.create( {
         :name     => "New Century Tea House",
-        :address  => "532 Broadway Ave. East, Seattle, WA, USA"
+        :address  => locations(:one).address
       } )
     end
   end
@@ -54,8 +55,8 @@ class LocationTest < ActiveSupport::TestCase
     } )
     assert_valid(location)
     location.save!
-    assert_equal   47.5990131, location.latitude
-    assert_equal -122.325085,  location.longitude
+    assert_equal BigDecimal.new("47.5990131"),  location.latitude
+    assert_equal BigDecimal.new("-122.325085"), location.longitude
   end
 
   # WARNING! This test is fragile if you change from [:google,:us] in
@@ -71,7 +72,8 @@ class LocationTest < ActiveSupport::TestCase
   end
 
   test "updating the location address and name triggers a new geocode lookup" do
-    location = Location.find(:first)
+    # TODO Brittle! Need Mocks here
+    location = Location.find(locations(:one).id)
     loc_address = location.address.clone
     loc_name = location.name.clone
     #
@@ -79,49 +81,44 @@ class LocationTest < ActiveSupport::TestCase
     location.address = "1704 NW Market St., Seattle, WA"
     assert location.save!
     assert_equal "Floating Tea Leaves", location.name
-    assert_equal   47.66867,   location.latitude
-    assert_equal -122.3789849, location.longitude
+    assert_equal BigDecimal.new("47.66867"),     location.latitude
+    assert_equal BigDecimal.new("-122.3789849"), location.longitude
     #
     # rollback to known data so other unit tests don't blow up
     location.name = loc_name
     location.address = loc_address
     assert location.save!
-    assert_equal "Vivace Espresso Bar at Brix", location.name
-    assert_equal   47.6065233, location.latitude
-    assert_equal -122.3207549, location.longitude
+    assert_equal locations(:one).name, location.name
+    assert_equal locations(:one).latitude,  location.latitude
+    assert_equal locations(:one).longitude, location.longitude
   end
 
   test "should find closest group location by address" do
+    # TODO Networked Brittle! Need Mocks here
     location = Location.closest("Seattle, WA")
-    assert_equal 1, location.id
+    assert_equal locations(:one).id, location.id
   end
 
   test "should find closest group location by zipcode" do
+    # TODO Networked Brittle! Need Mocks here
     location = Location.closest("98144")
-    assert_equal 1, location.id
+    assert_equal locations(:one).id, location.id
   end
 
   test "should find closest location by address within given distance" do
+    # TODO Networked Brittle! Need Mocks here
     location = Location.within(10, "Bellevue, WA")
-    assert_equal 1, location[0].id
+    assert_equal locations(:one).id, location[0].id
   end
 
   # How to start/stop rake ts:start/ts:stop from test suites?
   # Or sanity check that think_sphinx interface is running?
   # scan for pid? 
   #
-  # Garr! test fails!
-  #
-#>> res = Location.search("Seattle")
-#=> [#<Location id: 1, name: "Vivace Espresso Bar at Brix", address: "532 Broadway Ave. East, Seattle, WA, USA", latitude: 47.6065, longitude: -122.321, group_id: 1, created_at: "2009-02-26 07:01:00", updated_at: "2009-02-26 07:01:00">]
-#>> res.first
-#=> #<Location id: 1, name: "Vivace Espresso Bar at Brix", address: "532 Broadway Ave. East, Seattle, WA, USA", latitude: 47.6065, longitude: -122.321, group_id: 1, created_at: "2009-02-26 07:01:00", updated_at: "2009-02-26 07:01:00">
-#>> res.first.name
-#=> "Vivace Espresso Bar at Brix"
-  #
   # More development db vs fixtures. Frakking fixtures!
   #
-  # TODO, merge fixture data into test database, then build out sphinx
+  # DONE, merge fixture data into test database
+  # TODO, build out sphinx
   # TODO, code some way to check if daemon is running.
   #
   #test "think_sphinx returns known location" do

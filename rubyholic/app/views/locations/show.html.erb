@@ -1,3 +1,4 @@
+<div "data">
 <p>
   <b>Name:</b>
   <%=h @location.name %>
@@ -9,14 +10,13 @@
 </p>
 
 <p>
-  <b>Latitude:</b>
-  <%=h @location.latitude %>
+  <b>Notes:</b>
+  <%=h @location.notes %>
 </p>
 
-<p>
-  <b>Longitude:</b>
-  <%=h @location.longitude %>
-</p>
+</div>
+
+<%= @map.div(:width => 600, :height => 300) %>
 
 <%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>

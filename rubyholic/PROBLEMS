@@ -1,0 +1,15 @@
+I think group.locations.first.name may bite me later, especially if a group has multiple locations. Could do something with a weighted response based on event linkages
+
+Issues with Floats being converted to 4 points of precision in DB
+
+Problems with ambiguous results from geocode call
+
+>> geo=Geokit::Geocoders::MultiGeocoder.geocode("532 E Broadway Ave., Seattle, WA")
+=> #<Geokit::GeoLoc:0x1f8b4b0 @lat=47.6065233, @full_address="532 Broadway, Seattle, WA 98122, USA", @state="WA", @success=true, @city="Seattle", @country_code="US", @street_address="532 Broadway", @lng=-122.3207549, @zip="98122", @provider="google", @precision="address", @all=[#<Geokit::GeoLoc:0x1f8b4b0 ...>, #<Geokit::GeoLoc:0x1f567d8 @lat=47.6235249, @full_address="532 Broadway E, Seattle, WA 98102, USA", @state="WA", @success=true, @city="Seattle", @country_code="US", @street_address="532 Broadway E", @lng=-122.3209336, @zip="98102", @provider="google", @precision="address", @all=[#<Geokit::GeoLoc:0x1f567d8 ...>]]
+>> geo.success
+=> true
+
+>> Geokit::Geocoders::GoogleGeocoder.send :geocode, "532 Broadway Ave. East, Seattle, WA"
+=> #<Geokit::GeoLoc:0x1f23964 @lat=47.6065233, @full_address="532 Broadway, Seattle, WA 98122, USA", @state="WA", @success=true, @city="Seattle", @country_code="US", @street_address="532 Broadway", @lng=-122.3207549, @zip="98122", @provider="google", @precision="address", @all=[#<Geokit::GeoLoc:0x1f23964 ...>, #<Geokit::GeoLoc:0x1974784 @lat=47.6235249, @full_address="532 Broadway E, Seattle, WA 98102, USA", @state="WA", @success=true, @city="Seattle", @country_code="US", @street_address="532 Broadway E", @lng=-122.3209336, @zip="98102", @provider="google", @precision="address", @all=[#<Geokit::GeoLoc:0x1974784 ...>]]
+>> Geokit::Geocoders::GoogleGeocoder.send :geocode, "532 Broadway East, Seattle, WA"
+=> #<Geokit::GeoLoc:0x2529214 @lat=47.6235249, @full_address="532 Broadway E, Seattle, WA 98102, USA", @state="WA", @success=true, @city="Seattle", @country_code="US", @street_address="532 Broadway E", @lng=-122.3209336, @zip="98102", @provider="google", @precision="address", @all=[#<Geokit::GeoLoc:0x2529214 ...>]

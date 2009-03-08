@@ -4,16 +4,12 @@
   <tr>
     <th>Name</th>
     <th>Address</th>
-    <th>Latitude</th>
-    <th>Longitude</th>
   </tr>
 
 <% for location in @locations %>
   <tr>
     <td><%=h location.name %></td>
     <td><%=h location.address %></td>
-    <td><%=h location.latitude %></td>
-    <td><%=h location.longitude %></td>
     <td><%= link_to 'Show', location %></td>
     <td><%= link_to 'Edit', edit_location_path(location) %></td>
     <td><%= link_to 'Destroy', location, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -23,4 +19,4 @@
 
 <br />
 
-<%= link_to 'New location', new_location_path %>
+<%= link_to 'New Location', new_location_path %>

@@ -1,26 +1,26 @@
-<head><title>Rubyholic</title></head>
 <img src="/images/rubyholic.png">
 
-<h3>Listing groups</h3>
+<h3>Listing Groups</h3>
 
 <table>
   <tr>
     <th><%= link_to "Name",     groups_path(:sort => "name") %></th>
-    <th>AKA</th>
-    <th>URL</th>
+    <th>Description</th>
     <th><%= link_to "Location", groups_path(:sort => "location") %></th>
   </tr>
 
 <% for group in @groups %>
   <tr>
-    <td><%=h group.name %></td>
+    <td><a href="<%= group.url %>"><%=h group.name %></a></td>
     <% if group.description.empty? %>
-    <td>Non Specified</td>
+    <td>Not Specified</td>
     <% else %>
     <td><%=h group.description %></td>
     <% end %>
-    <td><a href="<%=h group.url %>"><%= h group.url %></a></td>
+    <!--
     <td><%=h group.locations.first.name %></td>
+    -->
+    <td><%= link_to "#{group.locations.first.name}", :controller => 'locations', :action => 'show', :id => group.locations.first.id %></td>
     <td><%= link_to 'Show', group %></td>
     <td><%= link_to 'Edit', edit_group_path(group) %></td>
     <td><%= link_to 'Destroy', group, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -32,4 +32,4 @@
 
 <br />
 
-<%= link_to 'New group', new_group_path %>
+<%= link_to 'New Group', new_group_path %>

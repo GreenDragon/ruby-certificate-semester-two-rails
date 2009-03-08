@@ -15,6 +15,14 @@ class LocationsController < ApplicationController
   def show
     @location = Location.find(params[:id])
 
+    @map = GMap.new("map_div")
+    @map.control_init(:large_map => true, :map_type => true)
+    @map.center_zoom_init([@location.latitude, @location.longitude],14)
+    @map.overlay_init(GMarker.new([@location.latitude,@location.longitude],
+                      :title        => @location.name,
+                      :info_window  => @location.notes
+                     ))
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @location }

@@ -3,11 +3,12 @@ class Location < ActiveRecord::Base
   has_many  :groups, :through => :events, :dependent => :destroy
 
   validates_presence_of       :name, :address
-  # fail safe when geocode errors are not caught
-  # since it's ! null, it enters 0 when not found
-  # need to intercept that in the future
-  validates_presence_of       :latitude, :longitude
+  
+  # fail safe when geocode errors are not caught since it's not null
+  # it enters 0 when not found, need to intercept that in the future
+  # or simply not allow 0,0 as lat/long
 
+  validates_presence_of       :latitude, :longitude
   validates_numericality_of   :latitude, :longitude
 
   acts_as_mappable  :lat_column_name  => :latitude,
@@ -32,11 +33,22 @@ class Location < ActiveRecord::Base
   end
 
   def self.closest(origin)
-    Location.find_closest(:origin => origin)
+    # Handle temporal lookup failures
+    # TODO Need to mock lookups in test cases
+    begin
+      Location.find_closest(:origin => origin)
+    rescue Geokit::Geocoders::GeocodeError
+      nil
+    end
   end
 
   def self.within(distance, origin)
-    Location.find_within(distance, :origin => origin)
+    # TODO Need to mock up lookups in test cases
+    begin
+      Location.find_within(distance, :origin => origin)
+    rescue Geokit::Geocoders::GeocodeError
+      nil
+    end
   end
 
 private

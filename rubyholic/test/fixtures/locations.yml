@@ -1,36 +1,41 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
+# Returns 2 results on geocode, defaults to 532 Broadway Ave ( no East! )
+# Too ambiguous!
+
+# 532 E Broadway Ave., Seattle, WA, USA
+
 one:
   id:         1
-  name:       Vivace Espresso Bar at Brix
-  address:    532 Broadway Ave. East, Seattle, WA, USA
-  latitude:   47.6065
-  longitude:  -122.321
+  name:       Espresso Vivace Roasteria
+  address:    532 Broadway East, Seattle, WA, USA
+  latitude:   47.6235249
+  longitude:  -122.3209336
 
 two:
   id:         2
   name:       CubeSpace
   address:    622 SE Grand Ave., Portland, OR, USA
-  latitude:   45.5183
-  longitude:  -122.661
+  latitude:   45.518450
+  longitude:  -122.660560
 
 three:
   id:         3
   name:       Waves Coffee
   address:    492 Hastings Street West, Vancouver, British Columbia, CA
-  latitude:   49.2840016
-  longitude:  -123.11184
+  latitude:   49.283832
+  longitude:  -123.111792
 
 four:
   id:         4
   name:       Flamingo Block Building
   address:    229 11 Avenue SE, Suite 350, Calgary, Alberta, CA
-  latitude:   51.0422851
-  longitude:  -114.0600975
+  latitude:   51.042129
+  longitude:  -114.059993
 
 five:
   id:         5
   name:       ThoughtWorks Aon Center, 25 Floor
   address:    200 E. Randolph, Chicago, IL, USA
-  latitude:   41.884659
-  longitude:  -87.621487
+  latitude:   41.884545
+  longitude:  -87.622196
