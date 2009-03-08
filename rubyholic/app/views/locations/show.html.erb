@@ -1,22 +1,25 @@
-<div "data">
-<p>
-  <b>Name:</b>
-  <%=h @location.name %>
-</p>
-
-<p>
-  <b>Address:</b>
-  <%=h @location.address %>
-</p>
-
-<p>
-  <b>Notes:</b>
-  <%=h @location.notes %>
-</p>
-
+<div class="span-12">
+<table>
+  <tr>
+    <th>Name:</th>
+    <td><%=h @location.name %></td>
+  </tr>
+  <tr>
+    <th>Address:</th>
+    <td><%=h @location.address %></td>
+  </tr>
+  <tr>
+    <th>Notes:</th>
+    <td><%=h @location.notes %></td>
+  </tr>
+</table>
 </div>
 
-<%= @map.div(:width => 600, :height => 300) %>
+<div class="span-12 last">
+<%= @map.div(:width => 500, :height => 300) %>
+</div>
 
+<div class="span-24">
 <%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>
+</div>

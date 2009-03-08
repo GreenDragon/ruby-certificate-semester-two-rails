@@ -17,9 +17,6 @@
     <% else %>
     <td><%=h group.description %></td>
     <% end %>
-    <!--
-    <td><%=h group.locations.first.name %></td>
-    -->
     <td><%= link_to "#{group.locations.first.name}", :controller => 'locations', :action => 'show', :id => group.locations.first.id %></td>
     <td><%= link_to 'Show', group %></td>
     <td><%= link_to 'Edit', edit_group_path(group) %></td>
