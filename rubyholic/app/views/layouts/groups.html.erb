@@ -6,12 +6,21 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>Groups: <%= controller.action_name %></title>
   <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'screen', :media => "screen, projection" %>
+  <%= stylesheet_link_tag 'print', :media => "print" %>
+  <!--[if IE]>
+    <%= stylesheet_link_tag 'ie', :media => "screen, projection" %>
+  <![endif]-->
 </head>
 <body>
+
+<div class="container">
 
 <p style="color: green"><%= flash[:notice] %></p>
 
 <%= yield  %>
+
+</div>
 
 </body>
 </html>

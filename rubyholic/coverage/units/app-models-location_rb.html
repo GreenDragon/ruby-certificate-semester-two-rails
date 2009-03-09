@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Sun Mar 01 13:10:01 -0800 2009 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sun Mar 08 23:15:54 -0700 2009 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -571,24 +571,24 @@ span.run100 {
     </thead>
   <tbody><tr class='light'><td><a href='app-models-location_rb.html'>app/models/location.rb</a>
         </td>
-      <td class='lines_total'><tt>41</tt>
+      <td class='lines_total'><tt>61</tt>
         </td>
-      <td class='lines_code'><tt>25</tt>
+      <td class='lines_code'><tt>39</tt>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>100.0%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>90.2%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
-                  <td class='uncovered' width='0'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='90'/>
+                  <td class='uncovered' width='10'/>
                   </tr>
                 </table>
               </td>
             </tr>
           </table>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>100.0%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>84.6%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
-                  <td class='uncovered' width='0'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='85'/>
+                  <td class='uncovered' width='15'/>
                   </tr>
                 </table>
               </td>
@@ -603,42 +603,62 @@ span.run100 {
 </span><span class="marked1"><a name="line3"></a> 3   has_many  :groups, :through =&gt; :events, :dependent =&gt; :destroy
 </span><span class="inferred0"><a name="line4"></a> 4 
 </span><span class="marked1"><a name="line5"></a> 5   validates_presence_of       :name, :address
-</span><span class="inferred0"><a name="line6"></a> 6   # fail safe when geocode errors are not caught
-</span><span class="inferred1"><a name="line7"></a> 7   # since it's ! null, it enters 0 when not found
-</span><span class="inferred0"><a name="line8"></a> 8   # need to intercept that in the future
-</span><span class="marked1"><a name="line9"></a> 9   validates_presence_of       :latitude, :longitude
+</span><span class="inferred0"><a name="line6"></a> 6   
+</span><span class="inferred1"><a name="line7"></a> 7   # fail safe when geocode errors are not caught since it's not null
+</span><span class="inferred0"><a name="line8"></a> 8   # it enters 0 when not found, need to intercept that in the future
+</span><span class="inferred1"><a name="line9"></a> 9   # or simply not allow 0,0 as lat/long
 </span><span class="inferred0"><a name="line10"></a>10 
-</span><span class="marked1"><a name="line11"></a>11   validates_numericality_of   :latitude, :longitude
-</span><span class="inferred0"><a name="line12"></a>12 
-</span><span class="inferred1"><a name="line13"></a>13   acts_as_mappable  :lat_column_name  =&gt; :latitude,
-</span><span class="inferred0"><a name="line14"></a>14                     :lng_column_name  =&gt; :longitude,
-</span><span class="inferred1"><a name="line15"></a>15                     :auto_geocode     =&gt; { :field =&gt; :address,
-</span><span class="marked0"><a name="line16"></a>16                       :error_message =&gt; 'Could not find geocode address'}
-</span><span class="inferred1"><a name="line17"></a>17 
-</span><span class="marked0"><a name="line18"></a>18   before_validation           :geocode_address
-</span><span class="inferred1"><a name="line19"></a>19 
-</span><span class="marked0"><a name="line20"></a>20   define_index do
-</span><span class="inferred1"><a name="line21"></a>21     # fields
-</span><span class="marked0"><a name="line22"></a>22     indexes :name,                :sortable =&gt; true
-</span><span class="marked1"><a name="line23"></a>23     indexes :address,             :sortable =&gt; true
-</span><span class="marked0"><a name="line24"></a>24     indexes :notes,               :sortable =&gt; true
-</span><span class="inferred1"><a name="line25"></a>25     #
-</span><span class="inferred0"><a name="line26"></a>26     # indexes group.name,           :as =&gt; :group_name
-</span><span class="inferred1"><a name="line27"></a>27     # indexes group.alternate_name, :as =&gt; :group_alternate_name
-</span><span class="inferred0"><a name="line28"></a>28     # indexes group.url,            :as =&gt; :group_url
-</span><span class="inferred1"><a name="line29"></a>29     # attributes
-</span><span class="marked0"><a name="line30"></a>30     has latitude, longitude
-</span><span class="marked1"><a name="line31"></a>31     has created_at, updated_at
-</span><span class="inferred0"><a name="line32"></a>32   end
-</span><span class="inferred1"><a name="line33"></a>33 
-</span><span class="marked0"><a name="line34"></a>34 private
-</span><span class="inferred1"><a name="line35"></a>35 
-</span><span class="marked0"><a name="line36"></a>36   def geocode_address
-</span><span class="marked1"><a name="line37"></a>37     geo=GeoKit::Geocoders::MultiGeocoder.geocode(address)
-</span><span class="marked0"><a name="line38"></a>38     errors.add(:address, &quot;Could not Geocode address&quot;) if !geo.success
-</span><span class="marked1"><a name="line39"></a>39     self.latitude, self.longitude = geo.lat,geo.lng   if geo.success
-</span><span class="inferred0"><a name="line40"></a>40   end
-</span><span class="marked1"><a name="line41"></a>41 end
+</span><span class="marked1"><a name="line11"></a>11   validates_presence_of       :latitude, :longitude
+</span><span class="marked0"><a name="line12"></a>12   validates_numericality_of   :latitude, :longitude
+</span><span class="inferred1"><a name="line13"></a>13 
+</span><span class="inferred0"><a name="line14"></a>14   acts_as_mappable  :lat_column_name  =&gt; :latitude,
+</span><span class="inferred1"><a name="line15"></a>15                     :lng_column_name  =&gt; :longitude,
+</span><span class="inferred0"><a name="line16"></a>16                     :auto_geocode     =&gt; { :field =&gt; :address,
+</span><span class="marked1"><a name="line17"></a>17                       :error_message =&gt; 'Could not find geocode address'}
+</span><span class="inferred0"><a name="line18"></a>18 
+</span><span class="marked1"><a name="line19"></a>19   before_validation           :geocode_address
+</span><span class="inferred0"><a name="line20"></a>20 
+</span><span class="marked1"><a name="line21"></a>21   define_index do
+</span><span class="inferred0"><a name="line22"></a>22     # fields
+</span><span class="marked1"><a name="line23"></a>23     indexes :name,                :sortable =&gt; true
+</span><span class="marked0"><a name="line24"></a>24     indexes :address,             :sortable =&gt; true
+</span><span class="marked1"><a name="line25"></a>25     indexes :notes,               :sortable =&gt; true
+</span><span class="inferred0"><a name="line26"></a>26     #
+</span><span class="inferred1"><a name="line27"></a>27     # indexes group.name,           :as =&gt; :group_name
+</span><span class="inferred0"><a name="line28"></a>28     # indexes group.alternate_name, :as =&gt; :group_alternate_name
+</span><span class="inferred1"><a name="line29"></a>29     # indexes group.url,            :as =&gt; :group_url
+</span><span class="inferred0"><a name="line30"></a>30     # attributes
+</span><span class="marked1"><a name="line31"></a>31     has latitude, longitude
+</span><span class="marked0"><a name="line32"></a>32     has created_at, updated_at
+</span><span class="inferred1"><a name="line33"></a>33   end
+</span><span class="inferred0"><a name="line34"></a>34 
+</span><span class="marked1"><a name="line35"></a>35   def self.closest(origin)
+</span><span class="inferred0"><a name="line36"></a>36     # Handle temporal lookup failures
+</span><span class="inferred1"><a name="line37"></a>37     # TODO Need to mock lookups in test cases
+</span><span class="marked0"><a name="line38"></a>38     begin
+</span><span class="marked1"><a name="line39"></a>39       Location.find_closest(:origin =&gt; origin)
+</span><span class="uncovered0"><a name="line40"></a>40     rescue Geokit::Geocoders::GeocodeError
+</span><span class="uncovered1"><a name="line41"></a>41       nil
+</span><span class="uncovered0"><a name="line42"></a>42     end
+</span><span class="marked1"><a name="line43"></a>43   end
+</span><span class="inferred0"><a name="line44"></a>44 
+</span><span class="marked1"><a name="line45"></a>45   def self.within(distance, origin)
+</span><span class="inferred0"><a name="line46"></a>46     # TODO Need to mock up lookups in test cases
+</span><span class="marked1"><a name="line47"></a>47     begin
+</span><span class="marked0"><a name="line48"></a>48       Location.find_within(distance, :origin =&gt; origin)
+</span><span class="uncovered1"><a name="line49"></a>49     rescue Geokit::Geocoders::GeocodeError
+</span><span class="uncovered0"><a name="line50"></a>50       nil
+</span><span class="uncovered1"><a name="line51"></a>51     end
+</span><span class="marked0"><a name="line52"></a>52   end
+</span><span class="inferred1"><a name="line53"></a>53 
+</span><span class="marked0"><a name="line54"></a>54 private
+</span><span class="inferred1"><a name="line55"></a>55 
+</span><span class="marked0"><a name="line56"></a>56   def geocode_address
+</span><span class="marked1"><a name="line57"></a>57     geo=GeoKit::Geocoders::MultiGeocoder.geocode(address)
+</span><span class="marked0"><a name="line58"></a>58     errors.add(:address, &quot;Could not Geocode address&quot;) if !geo.success
+</span><span class="marked1"><a name="line59"></a>59     self.latitude, self.longitude = geo.lat,geo.lng   if geo.success
+</span><span class="inferred0"><a name="line60"></a>60   end
+</span><span class="marked1"><a name="line61"></a>61 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>

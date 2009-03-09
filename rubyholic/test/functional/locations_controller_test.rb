@@ -10,6 +10,15 @@ class LocationsControllerTest < ActionController::TestCase
   test "should get new" do
     get :new
     assert_response :success
+    assert_tag :tag => 'input', :attributes => {
+      :name => 'location[name]'
+    }
+    assert_tag :tag => 'input', :attributes => {
+      :name => 'location[address]'
+    }
+    assert_tag :tag => 'textarea', :attributes => {
+      :name => 'location[notes]'
+    }
   end
 
   test "should create location" do
@@ -26,11 +35,25 @@ class LocationsControllerTest < ActionController::TestCase
   test "should show location" do
     get :show, :id => locations(:one).id
     assert_response :success
+    assert_match /#{locations(:one).name}/, @response.body
+    assert_match /#{locations(:one).address}/, @response.body
+    assert_match /#{locations(:one).notes}/, @response.body
+    assert_match /maps\.google\.com\/maps\?file/, @response.body
+    assert_match /new GLatLng\(#{locations(:one).latitude},#{locations(:one).longitude}\)/, @response.body
   end
 
   test "should get edit" do
     get :edit, :id => locations(:one).id
     assert_response :success
+    assert_tag :tag => 'input', :attributes => {
+      :name => 'location[name]'
+    }
+    assert_tag :tag => 'input', :attributes => {
+      :name => 'location[address]'
+    }
+    assert_tag :tag => 'textarea', :attributes => {
+      :name => 'location[notes]'
+    }
   end
 
   test "should update location" do

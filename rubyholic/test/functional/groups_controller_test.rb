@@ -22,6 +22,15 @@ class GroupsControllerTest < ActionController::TestCase
   test "should get new" do
     get :new
     assert_response :success
+    assert_tag :tag => 'input', :attributes => {
+      :name => 'group[name]'
+    }
+    assert_tag :tag => 'textarea', :attributes => {
+      :name => 'group[description]'
+    }
+    assert_tag :tag => 'input', :attributes => {
+      :name => 'group[url]'
+    }
   end
 
   test "should create group" do
@@ -35,11 +44,26 @@ class GroupsControllerTest < ActionController::TestCase
   test "should show group" do
     get :show, :id => groups(:one).id
     assert_response :success
+    assert_match /#{groups(:one).name}/, @response.body
+    assert_match /#{groups(:one).description}/, @response.body
+    assert_match /#{groups(:one).url}/, @response.body
   end
 
   test "should get edit" do
     get :edit, :id => groups(:one).id
     assert_response :success
+    assert_tag :tag => 'input', :attributes => {
+      :name => 'group[name]'
+    }
+    assert_match /#{groups(:one).name}/, @response.body
+    assert_tag :tag => 'textarea', :attributes => {
+      :name => 'group[description]'
+    }
+    assert_match /#{groups(:one).description}/, @response.body
+    assert_tag :tag => 'input', :attributes => {
+      :name => 'group[url]'
+    }
+    assert_match /#{groups(:one).url}/, @response.body
   end
 
   test "should update group" do

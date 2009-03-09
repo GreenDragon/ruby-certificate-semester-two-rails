@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Sun Mar 01 13:10:01 -0800 2009 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sun Mar 08 23:15:54 -0700 2009 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -571,9 +571,9 @@ span.run100 {
     </thead>
   <tbody><tr class='light'><td><a href='app-models-group_rb.html'>app/models/group.rb</a>
         </td>
-      <td class='lines_total'><tt>44</tt>
+      <td class='lines_total'><tt>48</tt>
         </td>
-      <td class='lines_code'><tt>22</tt>
+      <td class='lines_code'><tt>24</tt>
         </td>
       <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>100.0%</tt>
               &nbsp;</td>
@@ -607,41 +607,45 @@ span.run100 {
 </span><span class="marked1"><a name="line7"></a> 7   has_many  :locations, :through =&gt; :events, :dependent =&gt; :destroy
 </span><span class="inferred0"><a name="line8"></a> 8 
 </span><span class="marked1"><a name="line9"></a> 9   validates_presence_of :name
-</span><span class="marked0"><a name="line10"></a>10   validates_format_of   :url, :with =&gt; /^https?:\/\/.*$/i
-</span><span class="inferred1"><a name="line11"></a>11 
-</span><span class="marked0"><a name="line12"></a>12   def self.index(page)
-</span><span class="marked1"><a name="line13"></a>13     Group.paginate :all, :page =&gt; page, :include =&gt; &quot;locations&quot;
-</span><span class="marked0"><a name="line14"></a>14   end
+</span><span class="inferred0"><a name="line10"></a>10   # real simple, yeah
+</span><span class="marked1"><a name="line11"></a>11   validates_format_of   :url, 
+</span><span class="inferred0"><a name="line12"></a>12     :with     =&gt; /^https?:\/\/.*$/i,
+</span><span class="inferred1"><a name="line13"></a>13     :message  =&gt; &quot;URL doesn't seem valid. Valid format is http://...&quot;,
+</span><span class="inferred0"><a name="line14"></a>14     :unless   =&gt; :url.nil?
 </span><span class="inferred1"><a name="line15"></a>15 
-</span><span class="marked0"><a name="line16"></a>16   def self.sort(sort, page)
-</span><span class="marked1"><a name="line17"></a>17     Group.paginate :all, :page =&gt; page, :include =&gt; &quot;locations&quot;,
-</span><span class="inferred0"><a name="line18"></a>18                               :order =&gt; &quot;upper(#{sort}) ASC&quot;
+</span><span class="inferred0"><a name="line16"></a>16 
+</span><span class="marked1"><a name="line17"></a>17   def self.index(page)
+</span><span class="marked0"><a name="line18"></a>18     Group.paginate :all, :page =&gt; page, :include =&gt; &quot;locations&quot;
 </span><span class="marked1"><a name="line19"></a>19   end
 </span><span class="inferred0"><a name="line20"></a>20 
-</span><span class="inferred1"><a name="line21"></a>21   #def self.sort_by_location_advanced
-</span><span class="inferred0"><a name="line22"></a>22   #  # Code ala tenderlove
-</span><span class="inferred1"><a name="line23"></a>23   #  g = Group.find(
-</span><span class="inferred0"><a name="line24"></a>24   #    :all, 
-</span><span class="inferred1"><a name="line25"></a>25   #    :include =&gt; :locations, 
-</span><span class="inferred0"><a name="line26"></a>26   #    :order =&gt; &quot;upper(locations.name) ASC&quot;
-</span><span class="inferred1"><a name="line27"></a>27   #  )
-</span><span class="inferred0"><a name="line28"></a>28   #  g.map { |group| group.locations.map { |location| [group.id, group.name, location.name] } }
-</span><span class="inferred1"><a name="line29"></a>29   #end
-</span><span class="inferred0"><a name="line30"></a>30 
-</span><span class="marked1"><a name="line31"></a>31   define_index do
-</span><span class="inferred0"><a name="line32"></a>32     # fields
-</span><span class="marked1"><a name="line33"></a>33     indexes :name,              :sortable =&gt; true
-</span><span class="marked0"><a name="line34"></a>34     indexes :alternate_name,    :sortable =&gt; true
-</span><span class="marked1"><a name="line35"></a>35     indexes :url,               :sortable =&gt; true
-</span><span class="marked0"><a name="line36"></a>36     indexes :description,       :sortable =&gt; true
-</span><span class="inferred1"><a name="line37"></a>37 
-</span><span class="inferred0"><a name="line38"></a>38     # indexes locations.name,     :as =&gt; :location_name
-</span><span class="inferred1"><a name="line39"></a>39     # indexes locations.address,  :as =&gt; :location_address
-</span><span class="inferred0"><a name="line40"></a>40     
-</span><span class="inferred1"><a name="line41"></a>41     # attributes
-</span><span class="marked0"><a name="line42"></a>42     has created_at, updated_at
-</span><span class="inferred1"><a name="line43"></a>43   end
-</span><span class="inferred0"><a name="line44"></a>44 end
+</span><span class="marked1"><a name="line21"></a>21   def self.sort(sort, page)
+</span><span class="marked0"><a name="line22"></a>22     Group.paginate :all, :page =&gt; page, :include =&gt; &quot;locations&quot;,
+</span><span class="inferred1"><a name="line23"></a>23                               :order =&gt; &quot;upper(#{sort}) ASC&quot;
+</span><span class="marked0"><a name="line24"></a>24   end
+</span><span class="inferred1"><a name="line25"></a>25 
+</span><span class="inferred0"><a name="line26"></a>26   #def self.sort_by_location_advanced
+</span><span class="inferred1"><a name="line27"></a>27   #  # Code ala tenderlove
+</span><span class="inferred0"><a name="line28"></a>28   #  g = Group.find(
+</span><span class="inferred1"><a name="line29"></a>29   #    :all, 
+</span><span class="inferred0"><a name="line30"></a>30   #    :include =&gt; :locations, 
+</span><span class="inferred1"><a name="line31"></a>31   #    :order =&gt; &quot;upper(locations.name) ASC&quot;
+</span><span class="inferred0"><a name="line32"></a>32   #  )
+</span><span class="inferred1"><a name="line33"></a>33   #  g.map { |group| group.locations.map { |location| [group.id, group.name, location.name] } }
+</span><span class="inferred0"><a name="line34"></a>34   #end
+</span><span class="inferred1"><a name="line35"></a>35 
+</span><span class="marked0"><a name="line36"></a>36   define_index do
+</span><span class="inferred1"><a name="line37"></a>37     # fields
+</span><span class="marked0"><a name="line38"></a>38     indexes :name,              :sortable =&gt; true
+</span><span class="marked1"><a name="line39"></a>39     indexes :url,               :sortable =&gt; true
+</span><span class="marked0"><a name="line40"></a>40     indexes :description,       :sortable =&gt; true
+</span><span class="inferred1"><a name="line41"></a>41 
+</span><span class="inferred0"><a name="line42"></a>42     # indexes locations.name,     :as =&gt; :location_name
+</span><span class="inferred1"><a name="line43"></a>43     # indexes locations.address,  :as =&gt; :location_address
+</span><span class="inferred0"><a name="line44"></a>44     
+</span><span class="inferred1"><a name="line45"></a>45     # attributes
+</span><span class="marked0"><a name="line46"></a>46     has created_at, updated_at
+</span><span class="inferred1"><a name="line47"></a>47   end
+</span><span class="inferred0"><a name="line48"></a>48 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>
