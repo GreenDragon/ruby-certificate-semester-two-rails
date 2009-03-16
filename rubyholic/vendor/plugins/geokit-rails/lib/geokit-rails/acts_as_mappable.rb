@@ -94,8 +94,13 @@ module Geokit
       geo=Geokit::Geocoders::MultiGeocoder.geocode(address)
   
       if geo.success
-        self.send("#{lat_column_name}=", geo.lat)
-        self.send("#{lng_column_name}=", geo.lng)
+        if geo.all.size > 1
+          errors.add(auto_geocode_field, "Ambiguous number of results found: #{geo.all.each.map { |g| g.full_address}.join(': ')}") 
+          geo.success = false
+        else
+          self.send("#{lat_column_name}=", geo.lat)
+          self.send("#{lng_column_name}=", geo.lng)
+        end
       else
         errors.add(auto_geocode_field, auto_geocode_error_message) 
       end

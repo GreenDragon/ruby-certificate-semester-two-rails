@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  require 'chronic'
   # GET /events
   # GET /events.xml
   def index
@@ -25,6 +26,8 @@ class EventsController < ApplicationController
   # GET /events/new.xml
   def new
     @event = Event.new
+    default_time = Chronic.parse("today at 7pm")
+    @end_date = @start_date = Date.parse("#{default_time}")
 
     respond_to do |format|
       format.html # new.html.erb

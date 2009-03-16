@@ -9,8 +9,9 @@ class CreateLocations < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :locations, :name,    :unique => true
-    add_index :locations, :address, :unique => true
+    add_index :locations, :name,                    :unique => true
+    add_index :locations, :address,                 :unique => true
+    add_index :locations, [ :latitude, :longitude], :unique => true
   end
 
   def self.down

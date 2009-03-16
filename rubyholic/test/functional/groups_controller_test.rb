@@ -5,6 +5,8 @@ class GroupsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:groups)
+    # Hrmm, how do I stub this?
+    # assert_not_nil session[geo_location]
   end
 
   test "should get index sorted by name" do

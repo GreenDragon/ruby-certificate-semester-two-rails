@@ -67,6 +67,18 @@ class EventTest < ActiveSupport::TestCase
     assert_save_failure(event)
   end
 
+  test "event is invalid when end_date is not greater than start_date" do
+    time = Time.now
+    event = Event.create( {
+      :name         => "Seattle.rb @ Vivace's",
+      :start_date   => time,
+      :end_date     => time,
+      :group_id     => 1,
+      :location_id  => 1
+    } )
+    assert_save_failure(event)
+  end
+
   test "event is invalid when group_id invalid" do
     assert_raises ActiveRecord::StatementInvalid do
       event = Event.create( {

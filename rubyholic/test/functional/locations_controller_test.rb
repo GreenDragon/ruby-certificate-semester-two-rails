@@ -21,6 +21,15 @@ class LocationsControllerTest < ActionController::TestCase
     }
   end
 
+  test "should raise error when geocode is ambiguous" do
+    post :create, :location => {
+      :name     => "Ambiguous Vivace",
+      :address  => "532 E Broadway Ave., Seattle, WA, USA"
+    }
+
+    assert_match /Ambiguous number of results found/, @response.body
+  end
+
   test "should create location" do
     assert_difference('Location.count') do
       post :create, :location => { 
