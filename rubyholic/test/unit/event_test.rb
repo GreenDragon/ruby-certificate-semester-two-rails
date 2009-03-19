@@ -76,6 +76,8 @@ class EventTest < ActiveSupport::TestCase
       :group_id     => 1,
       :location_id  => 1
     } )
+    #assert ! event.valid?
+    #assert event.errors.on(:end_date)
     assert_save_failure(event)
   end
 

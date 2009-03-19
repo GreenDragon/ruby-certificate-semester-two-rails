@@ -27,8 +27,8 @@ class GroupTest < ActiveSupport::TestCase
 
   test "group is invalid when missing url" do
     group = Group.create( {
-      :name         => "chirb",
-      :description  => "Chicago Area Ruby Group"
+      :name         => "LARuby",
+      :description  => "Los Angeles Ruby Group"
     } )
     assert group.errors.on(:url)
     assert_save_failure(group)

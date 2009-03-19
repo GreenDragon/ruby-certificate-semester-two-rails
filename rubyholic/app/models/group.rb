@@ -6,12 +6,16 @@ class Group < ActiveRecord::Base
   has_many  :events, :dependent => :destroy
   has_many  :locations, :through => :events, :dependent => :destroy
 
-  validates_presence_of :name
+  validates_presence_of :name, :url
   # real simple, yeah
   validates_format_of   :url, 
     :with     => /^https?:\/\/.*$/i,
     :message  => "URL doesn't seem valid. Valid format is http://...",
-    :unless   => :url.nil?
+    :allow_nil  => true
+    # WDYFU? NNFN! IGTFKYFA!
+    # unless => :url.nil? reads much better to the 
+    # counter-intuitive allow_nil => true
+    # :unless   => :url.nil?
 
 
   def self.index(page)

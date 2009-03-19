@@ -26,7 +26,7 @@ class Event < ActiveRecord::Base
   validates_presence_of :name, :start_date, :end_date, :group_id, :location_id
 
   validates_datetime    :start_date, :end_date
-  
+
   #def initialize
   #  # default duration of event in minutes, 2 hours
   #  @duration = 120
@@ -43,12 +43,15 @@ class Event < ActiveRecord::Base
   end
 
 private
+
   def check_time
     # TODO How do I specify errors on date fields?
     if ( self.end_date && self.start_date ) then
       unless ( ( self.end_date - self.start_date ) > 0 ) then
-        self.end_date = self.start_date = nil
+        errors.add(end_date, "End date can not be before the start date.")
+        self.end_date = nil
       end
     end
   end
+
 end

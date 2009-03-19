@@ -2,6 +2,18 @@ require 'test_helper'
 require 'bigdecimal'
 
 class LocationTest < ActiveSupport::TestCase
+  context "A Location instance" do
+    setup do
+      @location = Location.find(:first)
+    end
+
+    should "return name of location" do
+      assert_equal "Espresso Vivace Roasteria", @location.name
+    end
+  end
+end
+
+class LocationTest < ActiveSupport::TestCase
   def setup
     @spoof = Location.new
     @spoof.name      = "Floating Tea Leaves" 
