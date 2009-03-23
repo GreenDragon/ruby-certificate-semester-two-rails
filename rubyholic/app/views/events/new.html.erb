@@ -16,16 +16,16 @@
     <%= calendar_date_select_tag :start_date, @start_date, :time => true %>
   </p>
   <p>
-    <%= f.label :end_date %><br />
-    <%= calendar_date_select_tag :end_date, @end_date, :time => true %>
+    <%= f.label :duration %><br />
+    <%= select :event, :duration, Event::DURATIONS, { :include_blank => false, :selected => 120 } %>
   </p>
   <p>
     <%= f.label :group_id %><br />
-    <%= f.text_field :group_id %>
+    <%= select :event, :group_id, Group.find(:all).collect { |g| [g.name, g.id] } %>
   </p>
   <p>
     <%= f.label :location_id %><br />
-    <%= f.text_field :location_id %>
+    <%= select :event, :location_id, Location.find(:all).collect { |l| [l.name, l.id] } %>
   </p>
   <p>
     <%= f.submit "Create" %>

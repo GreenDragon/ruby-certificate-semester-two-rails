@@ -12,7 +12,7 @@ class EventTest < ActiveSupport::TestCase
       :name         => "Special Seattle.RB Monthly Meeting",
       :description  => "_why is flying into town with his band!",
       :start_date   => "2009-03-30 17:00:00",
-      :end_date     => "2009-03-30 21:00:00",
+      :duration     => 120,
       :group_id     => 1,
       :location_id  => 1
     } )
@@ -43,7 +43,7 @@ class EventTest < ActiveSupport::TestCase
     assert_save_failure(event)
   end
 
-  test "event is invalid when missing end_date" do
+  test "event is invalid when missing duration" do
     event = Event.create( {
       :name         => "Special Seattle.RB Monthly Meeting",
       :description  => "_why is flying into town with his band!",
@@ -51,7 +51,7 @@ class EventTest < ActiveSupport::TestCase
       :group_id     => 1,
       :location_id  => 1
     } )
-    assert event.errors.on(:end_date)
+    assert event.errors.on(:duration)
     assert_save_failure(event)
   end
 
@@ -67,17 +67,25 @@ class EventTest < ActiveSupport::TestCase
     assert_save_failure(event)
   end
 
-  test "event is invalid when end_date is not greater than start_date" do
-    time = Time.now
+  test "event is invalid when duration is not greater than zero" do
     event = Event.create( {
       :name         => "Seattle.rb @ Vivace's",
-      :start_date   => time,
-      :end_date     => time,
+      :start_date   => Time.now,
+      :duration     => 0,
       :group_id     => 1,
       :location_id  => 1
     } )
-    #assert ! event.valid?
-    #assert event.errors.on(:end_date)
+    assert_save_failure(event)
+  end
+
+  test "event is invalid when duration is greater than one day" do
+    event = Event.create( {
+      :name         => "Seattle.rb @ Vivace's",
+      :start_date   => Time.now,
+      :duration     => 24*60,
+      :group_id     => 1,
+      :location_id  => 1
+    } )
     assert_save_failure(event)
   end
 
@@ -87,7 +95,7 @@ class EventTest < ActiveSupport::TestCase
         :name         => "Special Seattle.RB Monthly Meeting",
         :description  => "_why is flying into town with his band!",
         :start_date   => "2009-03-30 17:00:00",
-        :end_date     => "2009-03-30 21:00:00",
+        :duration     => 120,
         :group_id     => 666,
         :location_id  => 1
       } )
@@ -112,7 +120,7 @@ class EventTest < ActiveSupport::TestCase
         :name         => "Special Seattle.RB Monthly Meeting",
         :description  => "_why is flying into town with his band!",
         :start_date   => "2009-03-30 17:00:00",
-        :end_date     => "2009-03-30 21:00:00",
+        :duration     => 120,
         :group_id     => 1,
         :location_id  => 666
       } )

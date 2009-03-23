@@ -17,7 +17,7 @@ class EventsControllerTest < ActionController::TestCase
       post :create, :event => { 
         :name         => "Seattle.rb @ Vivace's", 
         :start_date   => Time.now,
-        :end_date     => Time.now + 2.hours,
+        :duration     => 120,
         :group_id     => 1,
         :location_id  => 1
       }
@@ -26,12 +26,22 @@ class EventsControllerTest < ActionController::TestCase
     assert_redirected_to event_path(assigns(:event))
   end
 
-  test "should not create event if end time is not greater than start time" do
-    time = Time.now
+  test "should not create event if duration is zero" do
     post :create, :event => {
       :name         => "Seattle.rb @ Vivace's",
-      :start_date   => time,
-      :end_date     => time,
+      :start_date   => Time.now,
+      :duration     => 0,
+      :group_id     => 1,
+      :location_id  => 1
+    }
+    assert_template "new"
+  end
+
+  test "should not create event is duration is greater than one day" do
+    post :create, :event => {
+      :name         => "Seattle.rb @ Vivace's",
+      :start_date   => Time.now,
+      :duration     => 24*60,
       :group_id     => 1,
       :location_id  => 1
     }
