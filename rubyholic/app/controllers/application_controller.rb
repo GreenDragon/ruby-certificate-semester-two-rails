@@ -3,7 +3,7 @@
 require 'chronic'
 
 class ApplicationController < ActionController::Base
-  # geocode_ip_address
+  geocode_ip_address
 
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
