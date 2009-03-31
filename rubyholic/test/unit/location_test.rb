@@ -144,20 +144,17 @@ class LocationTest < ActiveSupport::TestCase
     assert location.errors.on(:address)
   end
 
+  test "should find group based on location" do
+    mock(Location).search("seattle") { [locations(:one)] }
+    results = Location.search("seattle")
+    assert_equal locations(:one).id, results[0].id
+  end
+
   # How to start/stop rake ts:start/ts:stop from test suites?
   # Or sanity check that think_sphinx interface is running?
   # scan for pid? 
   #
-  # More development db vs fixtures. Frakking fixtures!
-  #
   # DONE, merge fixture data into test database
   # TODO, build out sphinx
   # TODO, code some way to check if daemon is running.
-  #
-  #test "think_sphinx returns known location" do
-  #  res = Location.search("MyString")
-  #  # Hrmm, this will be tricky to test since we don't index 
-  #  # the test db fixtures yet. Joy!
-  #  assert_nil res.first
-  #end
 end

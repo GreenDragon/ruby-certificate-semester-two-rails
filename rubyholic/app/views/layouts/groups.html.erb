@@ -4,7 +4,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>Groups: <%= controller.action_name %></title>
+  <% if controller.action_name == "show" %>
+    <title><%=h @group.name %></title>
+    <%= GMap.header %>
+    <%= @map.to_html %>
+  <% else %>
+    <title>Groups: <%= controller.action_name %></title>
+  <% end %>
   <%= stylesheet_link_tag 'scaffold' %>
   <%= stylesheet_link_tag 'screen', :media => "screen, projection" %>
   <%= stylesheet_link_tag 'print', :media => "print" %>

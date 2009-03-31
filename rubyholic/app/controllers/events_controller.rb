@@ -25,7 +25,7 @@ class EventsController < ApplicationController
   # GET /events/new.xml
   def new
     @event = Event.new
-    @start_date = Chronic.parse("today at 7pm")
+    @event.start_date = Chronic.parse("today at 7pm").to_datetime
 
     respond_to do |format|
       format.html # new.html.erb

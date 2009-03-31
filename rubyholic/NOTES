@@ -1,3 +1,5 @@
+Rake::Task["maintenance:delete_order_files"].invoke
+
 >> Geokit::Geocoders::GeoPluginGeocoder.do_geocode('76.121.96.144')
 => #<Geokit::GeoLoc:0x1f64144 @lat=47.667999, @full_address=nil, @state="WA", @success=true, @city="Seattle", @country_code="US", @street_address=nil, @lng=-122.379204, @zip=nil, @provider="geoPlugin", @precision="unknown", @all=[#<Geokit::GeoLoc:0x1f64144 ...>]
 

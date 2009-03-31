@@ -1,27 +1,46 @@
-<img src="/images/rubyholic.png">
+<a href="/"><img src="/images/rubyholic.png"></a>
 
-<h3>Listing Groups</h3>
+<h3>Ruby Groups</h3>
+
+<form action="<%= url_for(:action => 'index') %>" method="get">
+  <input type="test" size="40" name="q" />
+  <button type="submit">Search</button>
+</form>
 
 <table>
   <tr>
-    <th><%= link_to "Name",     groups_path(:sort => "name") %></th>
+    <% if @search_terms %>
+      <th><%= link_to "Name", { :sort => "name", :q => @search_terms } %></th>
+    <% else %>
+      <th><%= link_to "Name", groups_path(:sort => "name") %></th>
+    <% end %>
+
     <th>Description</th>
+    
+    <% if @search_terms %>
+    <th><%= link_to "Location", { :sort => "location", :q => @search_terms } %></th>
+    <% else %>
     <th><%= link_to "Location", groups_path(:sort => "location") %></th>
+    <% end %>
   </tr>
 
-<% for group in @groups %>
-  <tr>
-    <td><a href="<%= group.url %>"><%=h group.name %></a></td>
-    <% if group.description.empty? %>
-    <td>Not Specified</td>
-    <% else %>
-    <td><%=h group.description %></td>
-    <% end %>
-    <td><%= link_to "#{group.locations.first.name}", :controller => 'locations', :action => 'show', :id => group.locations.first.id %></td>
-    <td><%= link_to 'Show', group %></td>
-    <td><%= link_to 'Edit', edit_group_path(group) %></td>
-    <td><%= link_to 'Destroy', group, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+<% if @groups %>
+  <% for group in @groups %>
+    <tr>
+      <td><a href="<%= group.url %>"><%=h group.name %></a></td>
+      <% if group.description.empty? %>
+        <td>Not Specified</td>
+      <% else %>
+        <td><%=h group.description %></td>
+      <% end %>
+      <td><%= link_to "#{group.locations.first.name}", :controller => 'locations', :action => 'show', :id => group.locations.first.id %></td>
+      <td><%= link_to 'Show', group %></td>
+      <td><%= link_to 'Edit', edit_group_path(group) %></td>
+      <td><%= link_to 'Destroy', group, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+<% else %>
+  <tr><td>No results found</tr></td>
 <% end %>
 </table>
 

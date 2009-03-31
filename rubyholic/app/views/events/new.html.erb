@@ -13,7 +13,8 @@
   </p>
   <p>
     <%= f.label :start_date %><br />
-    <%= calendar_date_select_tag :start_date, @start_date, :time => true %>
+    <!-- calendar_date_select_tag "event[start_date]", @event.start_date, :time => true -->
+    <%= f.datetime_select :start_date %>
   </p>
   <p>
     <%= f.label :duration %><br />

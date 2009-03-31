@@ -1,18 +1,52 @@
-<p>
-  <b>Name:</b>
-  <%=h @group.name %>
-</p>
+<div class="span-12">
+<table>
+  <tr>
+    <th>Name:</th>
+    <td><%=h @group.name %></td>
+  </tr>
+  <tr>
+    <th>Description:</th>
+    <td><%=h @group.description %></td>
+  </tr>
+  <tr>
+    <th>URL:</th>
+    <td><%=h @group.url %></td>
+  </tr>
+</table>
+</div>
 
-<p>
-  <b>Description:</b>
-  <%=h @group.description %>
-</p>
+<div class="span-12 last">
+  <% if @map %>
+    <%= @map.div(:width => 500, :height => 300) %>
+  <% end %>
+</div>
 
-<p>
-  <b>URL:</b>
-  <%=h @group.url %>
-</p>
+<div class="span-24">
+  <% if @group.events %>
+    <table>
+    <% for event in @group.events %>
+      <tr>
+        <th>Name</th>
+        <td><%= event.name %></td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td><%= event.description %></td>
+      </tr>
+      <tr>
+        <th>Meeting Time</th>
+        <td><%= event.start_date %> to <%= event.end_date %></td>
+      </tr>
+    <% end %>
+    </table>
+  <% end %>
+</div>
 
+<div class="span-24">
+<%= link_to 'New Event', new_event_path %>
+</div>
 
+<div class="span-24">
 <%= link_to 'Edit', edit_group_path(@group) %> |
 <%= link_to 'Back', groups_path %>
+</div>

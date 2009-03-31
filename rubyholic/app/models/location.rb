@@ -30,6 +30,9 @@ class Location < ActiveRecord::Base
     # attributes
     has latitude, longitude
     has created_at, updated_at
+
+    # causes undefined method 'delta=' errors
+    set_property :delta => true
   end
 
   def self.closest(origin)

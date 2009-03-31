@@ -126,4 +126,13 @@ class EventTest < ActiveSupport::TestCase
       } )
     end
   end
+
+  test "events should be sorted by start_date by named_scope" do
+    event_ids = Event.sort_by_start_date.map { |e| e.id }
+    assert_equal [4, 5, 3, 2, 1], event_ids
+  end
+
+  test "current events should show when using named_scope" do
+    assert_equal [], Event.current_events
+  end
 end

@@ -1,9 +1,9 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
-require 'chronic'
 
 class ApplicationController < ActionController::Base
-  geocode_ip_address
+  # for future reference when automagically selecting users location
+  # geocode_ip_address
 
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details

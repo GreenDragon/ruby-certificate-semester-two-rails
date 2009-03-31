@@ -15,6 +15,24 @@ class GroupsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:groups)
   end
 
+  test "should get index search by seattle" do
+    get :index, :q => "seattle"
+    assert_response :success
+    assert_not_nil assigns(:groups)
+  end
+
+  test "should get index search by seattle sort by name" do
+    get :index, :q => "seattle", :sort => "name"
+    assert_response :success
+    assert_not_nil assigns(:groups)
+  end
+
+  test "should get index search by seattle sort by location" do
+    get :index, :q => "seattle", :sort => "location"
+    assert_response :success
+    assert_not_nil assigns(:groups)
+  end
+
   test "should get index sorted by location" do
     get :index, :sort => "location"
     assert_response :success

@@ -2,14 +2,23 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.xml
   def index
-    case params["sort"]
-      when "name" then 
-        @groups = Group.sort(params[:sort], params[:page])
-      when "location" then 
-        # yeah, this is fugly!
-        @groups = Group.sort("locations.name", params[:page])
-      else                 
-        @groups = Group.index(params[:page])
+    @search_terms = nil
+    if params[:q] then
+      @search_terms = params[:q]
+      order_by = nil
+      order_by = params[:sort].to_sym if params[:sort]
+      
+      @groups = Group.search params[:q], :page => params[:page], :order => order_by
+    else
+      case params[:sort]
+        when "name" then 
+          @groups = Group.sort(params[:sort], params[:page])
+        when "location" then 
+          # yeah, this is fugly!
+          @groups = Group.sort("locations.name", params[:page])
+        else                 
+          @groups = Group.index(params[:page])
+      end
     end
 
     respond_to do |format|
@@ -22,6 +31,16 @@ class GroupsController < ApplicationController
   # GET /groups/1.xml
   def show
     @group = Group.find(params[:id])
+
+    if @group.locations
+      @map = GMap.new("map_div")
+      @map.control_init(:large_map => true, :map_type => true)
+      @map.center_zoom_init([@group.locations.first.latitude, @group.locations.first.longitude],14)
+      @map.overlay_init(GMarker.new([@group.locations.first.latitude, @group.locations.first.longitude],
+        :title        => @group.locations.first.name,
+        :info_window  => @group.locations.first.notes
+      ))
+    end
 
     respond_to do |format|
       format.html # show.html.erb

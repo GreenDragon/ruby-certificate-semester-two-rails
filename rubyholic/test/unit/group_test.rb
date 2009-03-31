@@ -59,8 +59,24 @@ class GroupTest < ActiveSupport::TestCase
     assert_equal [5, 4, 2, 1, 3], group_ids
   end
 
+  test "group should be sorted by name with named_scope" do
+    group_ids = Group.sort_by_name.map { |g| g.id }
+    assert_equal [5, 4, 2, 1, 3], group_ids
+  end
+
   test "group should be sorted by location" do
     group_ids = Group.sort("locations.name", 1).map { |g| g.id }
     assert_equal [2, 1, 4, 5, 3], group_ids
+  end
+
+  test "group should be sorted by location with named_scope" do
+    group_ids = Group.sort_by_location.map { |g| g.id }
+    assert_equal [2, 1, 4, 5, 3], group_ids
+  end
+
+  test "simple search should return primary group" do
+    mock(Group).search("seattle") { [groups(:one)] }
+    results = Group.search("seattle")
+    assert_equal groups(:one).id, results[0].id
   end
 end
